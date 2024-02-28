@@ -16,10 +16,11 @@ var Customer_Collection *mongo.Collection
 var Customer_Token *mongo.Collection
 var Doctor_Collection *mongo.Collection
 var Doctor_Token *mongo.Collection
+var BookAppointment *mongo.Collection
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 100*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
@@ -32,7 +33,7 @@ func init() {
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 100*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
@@ -43,13 +44,26 @@ func init() {
 	fmt.Println("Collection Connected")
 }
 
+func init() {
+	clientoption := options.Client().ApplyURI(constants.MongoURI)
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	client, err := mongo.Connect(ctx, clientoption)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("MongoDb sucessfully connected-(patient)")
+	BookAppointment = client.Database("MedCare").Collection("Patient-BookAppointment")
+
+	fmt.Println("Collection Connected")
+}
+
 // =================================================================
 // --------------->   Doctor   <----------------------
 // =================================================================
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 100*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
@@ -62,7 +76,7 @@ func init() {
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 100*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)

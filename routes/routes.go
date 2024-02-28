@@ -12,9 +12,11 @@ func SetupRoutes(r *gin.Engine) {
 	r.Static("/signup", "/home/nithish/Desktop/medcare/frontend/signup")
 	r.Static("/doctorsignup", "/home/nithish/Desktop/medcare/frontend/doctorsignup")
 	r.Static("/doctorsignin", "/home/nithish/Desktop/medcare/frontend/doctorsignin")
+	r.Static("/doctorhome", "/home/nithish/Desktop/medcare/frontend/doctorhome")
 
 	r.POST("/signupcustomer", handlers.CustomerSignup)
-	r.POST("/signincustomer",handlers.CustomerSignIn)
+	r.POST("/signincustomer", handlers.CustomerSignIn)
 	r.POST("/signupdoctor", handlers.DoctorSignup)
-	r.POST("/signindoctor",handlers.DoctorSignin)
+	r.POST("/signindoctor", handlers.DoctorSignin)
+	r.POST("/bookappointment", handlers.BookAppointment)
 }

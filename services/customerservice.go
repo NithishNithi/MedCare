@@ -77,3 +77,14 @@ func InsertToken(customerid, email, token string) (string, error) {
 	}
 	return token1.Token, nil
 }
+
+
+func BookAppointment(request *models.BookAppointment)(error){
+	ctx := context.Background()
+	_,err:=database.BookAppointment.InsertOne(ctx,request)
+	if err!=nil{
+		log.Println("error while inserting appointment",err)
+		return err
+	}
+	return nil
+}
