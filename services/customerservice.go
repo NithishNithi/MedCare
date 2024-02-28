@@ -3,7 +3,6 @@ package services
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	"medcare/database"
 	"medcare/models"
@@ -25,8 +24,8 @@ func CustomerSignUp(request *models.CustomerSignUp) error {
 	existingCustomer := models.CustomerSignUp{}
 	err := database.Customer_Collection.FindOne(ctx, filter).Decode(&existingCustomer)
 	if err == nil {
-		fmt.Println(err)
-		return errors.New("Account Already Exists")
+		log.Println("Account Already Exists", err)
+		return errors.New("account elready Exists")
 	} else if err != mongo.ErrNoDocuments {
 		return err
 	}
@@ -35,7 +34,7 @@ func CustomerSignUp(request *models.CustomerSignUp) error {
 	result, err := database.Customer_Collection.InsertOne(ctx, request)
 	if err != nil {
 		log.Printf("Failed to create customer: %v", err)
-		return errors.New("Failed to create customer")
+		return errors.New("failed to create customer")
 	}
 	// Find and return the newly inserted customer
 	newCustomer := &models.CustomerSignUp{}
@@ -45,4 +44,36 @@ func CustomerSignUp(request *models.CustomerSignUp) error {
 	}
 
 	return nil
+}
+
+func IsValidUser(request *models.CustomerSignIn) (bool, models.CustomerSignUp) {
+	ctx := context.Background()
+	customer := models.CustomerSignUp{}
+	query := bson.M{"emailid": request.EmailId}
+	err := database.Customer_Collection.FindOne(ctx, query).Decode(&customer)
+	if err != nil {
+		log.Println("Error in fetching user details : ", err)
+		return false, customer
+	}
+	if request.Password != customer.Password {
+		return false, customer
+	}
+	return true, customer
+}
+
+func InsertToken(customerid, email, token string) (string, error) {
+	dbToken := models.PatientToken{EmailID: email, Token: token, CustomerID: customerid}
+	result, err := database.Customer_Token.InsertOne(context.Background(), dbToken)
+	if err != nil {
+		log.Printf("Error inserting token: %v", err)
+		return "", err
+	}
+	token1 := models.PatientToken{}
+	query := bson.M{"_id": result.InsertedID}
+	err = database.Customer_Token.FindOne(context.Background(), query).Decode(&token1)
+	if err != nil {
+		log.Println("Error in fetching token : ", err)
+		return "", err
+	}
+	return token1.Token, nil
 }

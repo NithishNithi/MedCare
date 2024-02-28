@@ -2,7 +2,7 @@
 function Submitform(formData) {
 
   console.log("Request sent");
-  fetch("/signupcustomer", {
+  fetch("/signupdoctor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

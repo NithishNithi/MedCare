@@ -91,6 +91,9 @@
         .form-group button:hover {
             background-color: #13805f;
         }
+        .name123{
+            font-size: xx-large;
+        }
     </style>
 </head>
 
@@ -98,6 +101,7 @@
     <!-- Header Section Starts -->
     <div class="header">
         <a href="#" class="logo"><i class="fas fa-heartbeat"></i> medcare.</a>
+        <h2 class="name123"> Patient</h2>
         <nav class="navbar">
             <a href="/home">home</a>
             <a href="/signin">signin</a>
@@ -113,29 +117,30 @@
 
         <div class="container">
             <h1 style="text-align: center;">Signup</h1>
-    
-            <form action="">
+        
+            <form>
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input class="css-input" type="name" id="name" required>
+                    <input class="css-input" type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input class="css-input" type="email" id="email" name="email">
+                    <input class="css-input" type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input class="css-input" type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Confirm Password:</label>
-                    <input class="css-input" type="password" id="confirm_password" name="password" required>
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input class="css-input" type="password" id="confirm_password" name="confirm_password" required>
                 </div>
                 <div class="form-group">
-                    <button type="click" id="js-signup-button">Login</button>
+                    <button  id="js-signup-button">Signup</button>
                 </div>
             </form>
         </div>
+        
         <div class="toast-overlay" style="margin-top: 220px;"
          id="toast-overlay"></div> 
     </section>

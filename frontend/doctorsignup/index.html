@@ -11,7 +11,7 @@
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <!-- Custom Css File Link -->
-    <link rel="stylesheet" href="signin.css">
+    <link rel="stylesheet" href="signup.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
@@ -35,6 +35,18 @@
 
         .form-group {
             margin-bottom: 20px;
+        }
+
+        .css-input {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            text-transform: none;
+            transition: all .2s ease-out;
         }
 
         .form-group label {
@@ -65,6 +77,17 @@
             transition: background-color 0.3s ease;
         }
 
+        .js-err {
+            background-color: #777777;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: -600px;
+            margin-left: -10px;
+            font-size: x-large;
+
+        }
+
         .form-group button:hover {
             background-color: #13805f;
         }
@@ -78,23 +101,28 @@
     <!-- Header Section Starts -->
     <div class="header">
         <a href="#" class="logo"><i class="fas fa-heartbeat"></i> medcare.</a>
-        <h2 class="name123"> Patient</h2>
+        <h2 class="name123"> Doctor</h2>
         <nav class="navbar">
             <a href="/home">home</a>
-            <a href="/signin">signin</a>
-            <a href="/signup">signup</a>
+            <a href="/doctorsignin">signin</a>
+            <a href="/doctorsignup">signup</a>
         </nav>
         <div id="menu-btn" class="fas fa-bars"></div>
     </div>
     <!-- Header Section End -->
-
     <section class="home" id="home">
         <div>
             <img src="./image/home-img.svg" alt="home-img.svg" style="width: 250%;">
         </div>
+
         <div class="container">
-            <h2 style="text-align: center;">Login</h2>
+            <h1 style="text-align: center;">Doctor Signup</h1>
+        
             <form>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input class="css-input" type="text" id="name" name="name" required>
+                </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input class="css-input" type="email" id="email" name="email" required>
@@ -104,11 +132,17 @@
                     <input class="css-input" type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <button id="js-signin-button">Login</button>
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input class="css-input" type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <div class="form-group">
+                    <button  id="js-signup-button">Signup</button>
                 </div>
             </form>
         </div>
-        <div class="toast-overlay" style="margin-top: 220px;" id="toast-overlay"></div>
+        
+        <div class="toast-overlay" style="margin-top: 220px;"
+         id="toast-overlay"></div> 
     </section>
-    <script src='signin.js'></script>
+    <script src='signup.js'></script>
 </body>

@@ -1,6 +1,6 @@
 function Submitform(formdata) {
     console.log("Request sent");
-    fetch("/signincustomer", {
+    fetch("/signindoctor", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -12,7 +12,7 @@ function Submitform(formdata) {
             if (data.token) {
                 showToast("Login Success", "success", 5000);
                 const tokenDataString = JSON.stringify(data);
-                sessionStorage.setItem('token', tokenDataString);
+                sessionStorage.setItem('doctortoken', tokenDataString);
                 WindowWait('/home')
             } else {
                 showToast(data.error, "danger", 5000);
