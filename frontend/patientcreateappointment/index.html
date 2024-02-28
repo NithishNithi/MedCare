@@ -23,18 +23,20 @@
         }
 
         .container {
-            max-width: 400px;
+            max-width: 500px;
             margin: 100px auto;
             padding: 40px;
             background: #fff;
             border-radius: 10px;
             margin-left: 40%;
             display: block;
+            margin-left: 500px;
         }
 
 
         .form-group {
             margin-bottom: 20px;
+            max-width: 700px;
         }
 
         .form-group label {
@@ -68,8 +70,13 @@
         .form-group button:hover {
             background-color: #13805f;
         }
-        .name123{
+
+        .name123 {
             font-size: xx-large;
+        }
+        .name1234{
+            text-align: center;
+            font-size: 25px;
         }
     </style>
 </head>
@@ -89,22 +96,77 @@
     <!-- Header Section End -->
 
     <section class="home" id="home">
-        <div>
-            <img src="./image/home-img.svg" alt="home-img.svg" style="width: 250%;">
-        </div>
+
         <div class="container">
-            <h2 style="text-align: center;">Login</h2>
+            <h2 class="name1234">Book Appointment</h2>
             <form>
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input class="css-input" type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input class="css-input" type="password" id="password" name="password" required>
+                    <label for="date_of_birth">Date of Birth:</label>
+                    <input class="css-input" type="text" id="date_of_birth" name="date_of_birth" required>
                 </div>
                 <div class="form-group">
-                    <button id="js-signin-button">Login</button>
+                    <label for="gender">Gender:</label>
+                    <input class="css-input" type="text" id="gender" name="gender" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    <input class="css-input" type="text" id="phone_number" name="phone_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="css-input" type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input class="css-input" type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="brief_description">Reason for Appointment (Brief Description):</label>
+                    <input class="css-input" type="text" id="brief_description" name="brief_description" required>
+                </div>
+                <div class="form-group">
+                    <label for="symptoms">Symptoms:</label>
+                    <input class="css-input" type="text" id="symptoms" name="symptoms" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Preferred Date and Time::</label>
+                    <input class="css-input" type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="existing_conditions">Existing Conditions:</label>
+                    <input class="css-input" type="text" id="existing_conditions" name="existing_conditions" required>
+                </div>
+                <div class="form-group">
+                    <label for="medications">Medications:</label>
+                    <input class="css-input" type="text" id="medications" name="medications" required>
+                </div>
+                <div class="form-group">
+                    <label for="past_surgeries_treatments">Past Surgeries/Treatments:</label>
+                    <input class="css-input" type="text" id="past_surgeries_treatments" name="past_surgeries_treatments" required>
+                </div>
+                <div class="form-group">
+                    <label for="emergency_contact_name">Emergency Contact Name:</label>
+                    <input class="css-input" type="text" id="emergency_contact_name" name="emergency_contact_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="relationship">Relationship:</label>
+                    <input class="css-input" type="text" id="relationship" name="relationship" required>
+                </div>
+                <div class="form-group">
+                    <label for="emergency_phone_number">Emergency Phone Number::</label>
+                    <input class="css-input" type="text" id="emergency_phone_number" name="emergency_phone_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Additional Notes::</label>
+                    <input class="css-input" type="text" id="notes" name="notes" required>
+                </div>
+
+                <div class="form-group">
+                    <button id="js-signin-button">Submit</button>
                 </div>
             </form>
         </div>
