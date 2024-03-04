@@ -81,6 +81,6 @@ func BookAppointment(c *gin.Context) {
 		log.Println("error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Appointment Successfully"})
+	c.JSON(http.StatusOK, gin.H{"message": "Appointment Successfully Created"})
 
 }

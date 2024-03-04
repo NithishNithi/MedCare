@@ -28,9 +28,8 @@
             padding: 40px;
             background: #fff;
             border-radius: 10px;
-            margin-left: 40%;
             display: block;
-            margin-left: 500px;
+
         }
 
 
@@ -73,8 +72,10 @@
 
         .name123 {
             font-size: xx-large;
+            margin-left: -100px;
         }
-        .name1234{
+
+        .name1234 {
             text-align: center;
             font-size: 25px;
         }
@@ -87,9 +88,8 @@
         <a href="#" class="logo"><i class="fas fa-heartbeat"></i> medcare.</a>
         <h2 class="name123"> Patient</h2>
         <nav class="navbar">
-            <a href="/home">home</a>
-            <a href="/signin">signin</a>
-            <a href="/signup">signup</a>
+            <a href="/patienthome">home</a>
+
         </nav>
         <div id="menu-btn" class="fas fa-bars"></div>
     </div>
@@ -99,6 +99,7 @@
 
         <div class="container">
             <h2 class="name1234">Book Appointment</h2>
+            <br>
             <form>
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -124,18 +125,24 @@
                     <label for="address">Address:</label>
                     <input class="css-input" type="text" id="address" name="address" required>
                 </div>
+                <br><br>
+                <h2>Reason for Appointment</h2>
+                <br>
                 <div class="form-group">
-                    <label for="brief_description">Reason for Appointment (Brief Description):</label>
+                    <label for="brief_description">Brief Description:</label>
                     <input class="css-input" type="text" id="brief_description" name="brief_description" required>
                 </div>
                 <div class="form-group">
                     <label for="symptoms">Symptoms:</label>
                     <input class="css-input" type="text" id="symptoms" name="symptoms" required>
                 </div>
+                <br><br>
                 <div class="form-group">
-                    <label for="time">Preferred Date and Time::</label>
-                    <input class="css-input" type="time" id="time" name="time" required>
+                    <label for="datetime">Preferred Date and Time:</label>
+                    <input class="css-input" type="datetime-local" id="datetime" name="datetime" required>
                 </div>
+                <br><br>
+                <h2>Medical History</h2> <br>
                 <div class="form-group">
                     <label for="existing_conditions">Existing Conditions:</label>
                     <input class="css-input" type="text" id="existing_conditions" name="existing_conditions" required>
@@ -146,22 +153,24 @@
                 </div>
                 <div class="form-group">
                     <label for="past_surgeries_treatments">Past Surgeries/Treatments:</label>
-                    <input class="css-input" type="text" id="past_surgeries_treatments" name="past_surgeries_treatments" required>
+                    <input class="css-input" type="text" id="past_surgeries_treatments" name="past_surgeries_treatments"
+                        required>
                 </div>
+                <br><br>
+                <h2>Emergency Contact</h2> <br>
                 <div class="form-group">
                     <label for="emergency_contact_name">Emergency Contact Name:</label>
-                    <input class="css-input" type="text" id="emergency_contact_name" name="emergency_contact_name" required>
+                    <input class="css-input" type="text" id="emergency_contact_name" name="emergency_contact_name"
+                        required>
                 </div>
                 <div class="form-group">
-                    <label for="relationship">Relationship:</label>
-                    <input class="css-input" type="text" id="relationship" name="relationship" required>
+                    <label for="emergency_contact_phone_number">Emergency Contact Phone Number:</label>
+                    <input class="css-input" type="text" id="emergency_contact_phone_number"
+                        name="emergency_contact_phone_number" required>
                 </div>
+                <br><br>
                 <div class="form-group">
-                    <label for="emergency_phone_number">Emergency Phone Number::</label>
-                    <input class="css-input" type="text" id="emergency_phone_number" name="emergency_phone_number" required>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Additional Notes::</label>
+                    <label for="notes">Additional Notes:</label>
                     <input class="css-input" type="text" id="notes" name="notes" required>
                 </div>
 

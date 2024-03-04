@@ -13,7 +13,7 @@ function Submitform(formdata) {
                 showToast("Login Success", "success", 5000);
                 const tokenDataString = JSON.stringify(data);
                 sessionStorage.setItem('token', tokenDataString);
-                WindowWait('/home')
+                WindowWait('/patienthome')
             } else {
                 showToast(data.error, "danger", 5000);
             }

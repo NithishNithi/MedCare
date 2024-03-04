@@ -1,6 +1,6 @@
 function Submitform(formdata) {
     console.log("Request sent");
-    fetch("/signincustomer", {
+    fetch("/bookappointment", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -9,73 +9,61 @@ function Submitform(formdata) {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.token) {
-                showToast("Login Success", "success", 5000);
-                const tokenDataString = JSON.stringify(data);
-                sessionStorage.setItem('token', tokenDataString);
-                WindowWait('/home')
+            if (data.message) {
+                showToast(data.message, "success", 5000); // Fixed typo in toast type
+                windowWait('/patienthome'); // Fixed typo in function name
             } else {
                 showToast(data.error, "danger", 5000);
             }
-            //token store in session storage
+            // Token store in session storage
 
         })
         .catch(error => {
             console.error("Error:", error);
-            showToast(data.message, "danger", 5000);
+            showToast(error.message, "danger", 5000); // Fixed reference to data.message
         });
 }
 
-
+const tokenDataString = sessionStorage.getItem('token');
+const tokenData = JSON.parse(tokenDataString);
 
 document.getElementById("js-signin-button").addEventListener("click", (event) => {
     event.preventDefault();
     const formData = {
+        token: tokenData.token,
+        customerid: "",
+        name: document.getElementById("name").value,
+        dateofbirth: document.getElementById("date_of_birth").value,
+        gender: document.getElementById("gender").value,
+        phonenumber: document.getElementById("phone_number").value,
         emailid: document.getElementById("email").value,
-        password: document.getElementById("password").value,
+        address: document.getElementById("address").value,
+        briefdescription: document.getElementById("brief_description").value,
+        symptoms: document.getElementById("symptoms").value,
+        datetime: document.getElementById("datetime").value,
+        existingconditions: document.getElementById("existing_conditions").value,
+        medications: document.getElementById("medications").value,
+        pastsurgeriestreatments: document.getElementById("past_surgeries_treatments").value,
+        emergencycontactname: document.getElementById("emergency_contact_name").value,
+        emergencycontactphonenumber: document.getElementById("emergency_contact_phone_number").value,
+        notes: document.getElementById("notes").value
     };
+    console.log(formData);
 
-    if (formData.emailid.trim() === "" || formData.password.trim() === "") {
+    if (formData.emailid.trim() === "" || formData.name.trim() === "" || formData.dateofbirth.trim() === "" || formData.gender.trim() === "" || formData.phonenumber.trim() === ""
+        || formData.address.trim() === "" || formData.briefdescription.trim() === "" || formData.datetime.trim() === "" || formData.emergencycontactphonenumber.trim() === "") {
         showToast("Please fill in all the fields", "danger", 5000);
         return false;
     }
 
-    Submitform(formData)
-})
+    Submitform(formData);
+});
 
-
-function WindowWait(str) {
+function windowWait(str) {
     setTimeout(() => {
-      window.location.href = str
-    }, 3000)
-  
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        window.location.href = str;
+    }, 3000);
+}
 
 let icon = {
     success:
@@ -113,5 +101,5 @@ const showToast = (
         toastAlready.remove();
     }
 
-    document.body.appendChild(box)
+    document.body.appendChild(box);
 };
