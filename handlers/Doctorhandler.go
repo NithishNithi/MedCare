@@ -17,6 +17,7 @@ func DoctorSignup(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Internal server error"})
 		return
 	}
+	request.IsApproved = false
 
 	err = services.DoctorSignup(request)
 	if err != nil {

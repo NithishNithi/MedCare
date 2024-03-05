@@ -1,13 +1,16 @@
 package services
 
 import (
+	"context"
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
 	"medcare/constants"
+	"medcare/models"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/mailgun/mailgun-go/v4"
 )
 
 func CreateToken(email, customerid string) (string, error) {
@@ -53,7 +56,7 @@ func ExtractCustomerID(jwtToken string, secretKey string) (string, error) {
 	return "", fmt.Errorf("invalid or expired JWT token")
 }
 
-func GenerateID() string {
+func GenerateIDPA() string {
 	length := 4
 	randomBytes := make([]byte, length)
 	// Use crypto/rand to generate random bytes
@@ -64,11 +67,46 @@ func GenerateID() string {
 	// Convert random bytes to a hexadecimal string
 	id := hex.EncodeToString(randomBytes)
 
-	return "PA" + id
+	return "PAT" + id
+}
+func GenerateIDDOC() string {
+	length := 4
+	randomBytes := make([]byte, length)
+	// Use crypto/rand to generate random bytes
+	_, err := rand.Read(randomBytes)
+	if err != nil {
+		panic(err) // Handle error appropriately
+	}
+	// Convert random bytes to a hexadecimal string
+	id := hex.EncodeToString(randomBytes)
+
+	return "DOC" + id
 }
 
 func CurrentTime() string {
 	currentTime := time.Now()
 	currentTimeStr := currentTime.Format("2006-01-02 15:04:05")
 	return currentTimeStr
+}
+
+// //////////////////////////// Send Email - mailGun //////////////////////////////////
+func SendSimpleMessage(request *models.MailGunEmail) (string, error) {
+	domain := "sandbox567bd12d5b42484e94273fbe408ababa.mailgun.org"
+	mg := mailgun.NewMailgun(domain, constants.Mailgun_apikey)
+
+	sender := "Excited User <mailgun@sandbox567bd12d5b42484e94273fbe408ababa.mailgun.org>"
+	subject := request.Subject
+	message := request.Message
+
+	m := mg.NewMessage(sender, subject, message, request.RecipientEmail)
+
+	ctx := context.Background()
+
+	// Send the message with the context
+	resp, id, err := mg.Send(ctx, m)
+	if err != nil {
+		return "", err
+	}
+	fmt.Println("MailGun :", resp)
+	return id, nil
 }

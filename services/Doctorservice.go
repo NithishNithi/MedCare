@@ -13,7 +13,7 @@ import (
 
 func DoctorSignup(request *models.DoctorSignup) error {
 	ctx := context.Background()
-	request.DoctorID = GenerateID()
+	request.DoctorID = GenerateIDDOC()
 	filter := bson.D{
 		{"$or", []interface{}{
 			bson.D{{"doctorid", request.DoctorID}},
@@ -56,6 +56,9 @@ func IsValidUserDoctor(request *models.DoctorSignin) (bool, models.DoctorSignup)
 		return false, doctor
 	}
 	if request.Password != doctor.Password {
+		return false, doctor
+	}
+	if !doctor.IsApproved {
 		return false, doctor
 	}
 	return true, doctor

@@ -13,7 +13,7 @@ import (
 
 func CustomerSignUp(request *models.CustomerSignUp) error {
 	ctx := context.Background()
-	request.CustomerID = GenerateID()
+	request.CustomerID = GenerateIDPA()
 	filter := bson.D{
 		{"$or", []interface{}{
 			bson.D{{"customerid", request.CustomerID}},
@@ -87,3 +87,7 @@ func BookAppointment(request *models.BookAppointment) error {
 	}
 	return nil
 }
+
+
+
+

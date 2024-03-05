@@ -15,6 +15,7 @@ func SetupRoutes(r *gin.Engine) {
 	r.Static("/doctorhome", "/home/nithish/Desktop/medcare/frontend/doctorhome")
 	r.Static("/patienthome", "/home/nithish/Desktop/medcare/frontend/patienthome")
 	r.Static("/patientcreateappointment", "/home/nithish/Desktop/medcare/frontend/patientcreateappointment")
+	r.Static("/doctorenroll", "/home/nithish/Desktop/medcare/frontend/doctorenroll")
 
 	r.POST("/signupcustomer", handlers.CustomerSignup)
 	r.POST("/signincustomer", handlers.CustomerSignIn)

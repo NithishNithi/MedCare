@@ -20,7 +20,8 @@ var BookAppointment *mongo.Collection
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
@@ -28,12 +29,13 @@ func init() {
 	fmt.Println("MongoDb sucessfully connected-(patient)")
 	Customer_Collection = client.Database("MedCare").Collection("CustomerProfile")
 
-	fmt.Println("Collection Connected")
+	fmt.Println("CustomerProfile Connected")
 }
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
@@ -41,12 +43,13 @@ func init() {
 	fmt.Println("MongoDb sucessfully connected-(patient)")
 	Customer_Token = client.Database("MedCare").Collection("CustomerProfile-JWT-Token")
 
-	fmt.Println("Collection Connected")
+	fmt.Println("CustomerProfile-JWT-Token Connected")
 }
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
@@ -54,7 +57,7 @@ func init() {
 	fmt.Println("MongoDb sucessfully connected-(patient)")
 	BookAppointment = client.Database("MedCare").Collection("Patient-BookAppointment")
 
-	fmt.Println("Collection Connected")
+	fmt.Println("Patient-BookAppointment Connected")
 }
 
 // =================================================================
@@ -63,26 +66,28 @@ func init() {
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("MongoDb sucessfully connected-(patient)")
+	fmt.Println("MongoDb sucessfully connected-(doctor)")
 	Doctor_Collection = client.Database("MedCare").Collection("DoctorProfile")
 
-	fmt.Println("Collection Connected")
+	fmt.Println("DoctorProfile Connected")
 }
 
 func init() {
 	clientoption := options.Client().ApplyURI(constants.MongoURI)
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	client, err := mongo.Connect(ctx, clientoption)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("MongoDb sucessfully connected-(patient)")
+	fmt.Println("MongoDb sucessfully connected-(doctor)")
 	Doctor_Token = client.Database("MedCare").Collection("DoctorProfile-JWT-Token")
 
-	fmt.Println("Collection Connected")
+	fmt.Println("DoctorProfile-JWT-Token Connected")
 }
