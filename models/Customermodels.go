@@ -30,11 +30,15 @@ type BookAppointment struct {
 	Address                 string `json:"address" bson:"address" binding:"required"`
 	BriefDescription        string `json:"briefdescription" bson:"briefdescription" binding:"required"`
 	Symptoms                string `json:"symptoms" bson:"symptoms" binding:"required"`
-	DateTime                string `json:"datetime" bson:"datetime"`
+	Date                    string `json:"date" bson:"date" binding:"required"`
+	FromDateTime            string `json:"fromdatetime" bson:"fromdatetime"`
+	ToDateTime              string `json:"todatetime" bson:"todatetime"`
 	ExistingConditions      string `json:"existingconditions" bson:"existingconditions" binding:"required"`
 	Medications             string `json:"medications" bson:"medications" binding:"required"`
 	PastSurgeriesTreatments string `json:"pastsurgeriestreatments" bson:"pastsurgeriestreatments" binding:"required"`
 	EmergencyContactName    string `json:"emergencycontactname" bson:"emergencycontactname" binding:"required"`
 	EmergencyPhoneNumber    string `json:"emergencycontactphonenumber" bson:"emergencycontactphonenumber" binding:"required"`
 	Notes                   string `json:"notes" bson:"notes"`
+	DoctorSpecialization    string `json:"doctorspecialization" bson:"doctorspecialization"`
+	PreferredDoctorID       string `json:"preferreddoctorid" bson:"preferreddoctorid"`
 }

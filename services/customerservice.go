@@ -3,8 +3,11 @@ package services
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
+	generativeai "medcare/GenerativeAI"
 	"medcare/database"
+
 	"medcare/models"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -80,14 +83,112 @@ func InsertToken(customerid, email, token string) (string, error) {
 
 func BookAppointment(request *models.BookAppointment) error {
 	ctx := context.Background()
-	_, err := database.BookAppointment.InsertOne(ctx, request)
+	specialization, err := generativeai.GenerativeAI(request)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	doctor := models.DoctorSignup{}
+	
+	filter1 := bson.M{"isavailable": true}
+	filter2 := bson.M{"specialization": specialization}
+	filter3 := bson.M{"appointmentcount": bson.M{"$lt": 10}}
+	combinedFilter := bson.M{
+		"$and": []bson.M{filter1, filter2, filter3},
+	}
+	err = database.Doctor_Collection.FindOne(ctx, combinedFilter).Decode(&doctor)
+	if err != nil {
+		fmt.Println("==========", err)
+		log.Println("Not found Doctor with this specilization", err)
+		err = database.Doctor_Collection.FindOne(ctx, bson.M{"specialization": "Public Health and General Preventive Medicine"}).Decode(&doctor)
+		if err != nil {
+			log.Println(err)
+			fmt.Println("-------------------")
+			return err
+		}
+	}
+	if !doctor.IsApproved {
+		log.Println(doctor.Name + " is not approved yet")
+		return errors.New("doctor not approved yet")
+	}
+	appointmentCount := doctor.AppointmentCount + 1
+	filter1 = bson.M{"doctorid": doctor.DoctorID}
+	update1 := bson.M{"$set": bson.M{"appointmentcount": appointmentCount}}
+	_, err = database.Doctor_Collection.UpdateOne(ctx, filter1, update1)
+	if err != nil {
+		return err
+	}
+	if doctor.AppointmentCount == 0 {
+		request.FromDateTime = "09:00:00"
+		request.ToDateTime = "09:30:00"
+	} else if doctor.AppointmentCount == 1 {
+		request.FromDateTime = "09:40:00"
+		request.ToDateTime = "10:10:00"
+	} else if doctor.AppointmentCount == 2 {
+		request.FromDateTime = "10:20:00"
+		request.ToDateTime = "10:50:00"
+	} else if doctor.AppointmentCount == 3 {
+		request.FromDateTime = "11:00:00"
+		request.ToDateTime = "11:30:00"
+	} else if doctor.AppointmentCount == 4 {
+		request.FromDateTime = "11:40:00"
+		request.ToDateTime = "12:10:00"
+	} else if doctor.AppointmentCount == 5 {
+		request.FromDateTime = "13:40:00"
+		request.ToDateTime = "14:10:00"
+	} else if doctor.AppointmentCount == 6 {
+		request.FromDateTime = "14:20:00"
+		request.ToDateTime = "14:50:00"
+	} else if doctor.AppointmentCount == 7 {
+		request.FromDateTime = "15:00:00"
+		request.ToDateTime = "15:30:00"
+	} else if doctor.AppointmentCount == 8 {
+		request.FromDateTime = "15:40:00"
+		request.ToDateTime = "16:10:00"
+	} else if doctor.AppointmentCount == 9 {
+		request.FromDateTime = "16:20:00"
+		request.ToDateTime = "16:50:00"
+	} else {
+		log.Println(err)
+		return errors.New("invalid appointment count")
+	}
+
+	request.DoctorSpecialization = specialization
+	request.PreferredDoctorID = doctor.DoctorID
+	result, err := database.BookAppointment.InsertOne(ctx, request)
 	if err != nil {
 		log.Println("error while inserting  patient appointment", err)
 		return err
 	}
+	err = database.BookAppointment.FindOne(ctx, bson.M{"_id": result.InsertedID}).Decode(&request)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	// GetGmmetLink()
+	patientMessage := &models.MailGunEmail{
+		RecipientEmail: request.EmailID,
+		Subject:        "Reg - Medcare Appointment",
+		Message: `Dear [` + request.Name + `],
+	
+	This is to confirm your appointment with [` + doctor.Name + `] scheduled on [` + request.Date + `] at [` + request.FromDateTime + `]. 
+	
+	Appointment Details:
+	- Doctor: [` + doctor.Name + `]
+	- Date: [` + request.Date + `]
+	- Time: [` + request.FromDateTime + `]
+	- Virtual Meeting Link: 
+	
+	Please make sure to be available and ready for the appointment at least 5 minutes before the scheduled time.
+	
+	If you have any questions or need to reschedule, please contact us at [Your Contact Information].
+	
+	We look forward to seeing you.
+	
+	Best regards,
+	[Your Clinic/Hospital Name]`,
+	}
+	SendSimpleMessage(patientMessage)
+
 	return nil
 }
-
-
-
-

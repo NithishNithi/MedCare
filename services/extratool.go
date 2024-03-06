@@ -110,3 +110,91 @@ func SendSimpleMessage(request *models.MailGunEmail) (string, error) {
 	fmt.Println("MailGun :", resp)
 	return id, nil
 }
+
+type MeetLinkResponse struct {
+	MeetLink string `json:"meet_link"`
+	EventID  string `json:"event_id"`
+}
+
+type Event struct {
+	Summary        string `json:"summary"`
+	Start          Date   `json:"start"`
+	End            Date   `json:"end"`
+	ConferenceData `json:"conferenceData"`
+}
+
+type Date struct {
+	Date string `json:"date"`
+}
+
+type ConferenceData struct {
+	CreateRequest `json:"createRequest"`
+}
+
+type CreateRequest struct {
+	ConferenceSolutionKey `json:"conferenceSolutionKey"`
+	RequestId             string `json:"requestId"`
+}
+
+type ConferenceSolutionKey struct {
+	Type string `json:"type"`
+}
+
+// func GetGmmetLink(request *models.BookAppointment)(string,error) {
+// 	url := "http://localhost:5001/create-event"
+
+// 	// Event details
+// 	summary := "Medcare Appointment" // Replace with the summary you want to send dynamically
+
+// 	event := Event{
+// 		Summary: summary,
+// 		Start: Date{
+// 			Date: "2024-03-06", // Replace with the desired date
+// 		},
+// 		End: Date{
+// 			Date: "2024-03-06", // Replace with the desired date
+// 		},
+// 		ConferenceData: ConferenceData{
+// 			CreateRequest: CreateRequest{
+// 				ConferenceSolutionKey: ConferenceSolutionKey{
+// 					Type: "hangoutsMeet",
+// 				},
+// 				RequestId: "abblah",
+// 			},
+// 		},
+// 	}
+
+// 	// Convert event struct to JSON
+// 	eventJSON, err := json.Marshal(event)
+// 	if err != nil {
+// 		fmt.Println("Error marshalling event to JSON:", err)
+// 		return
+// 	}
+
+// 	// Make POST request to the microservice with event details
+// 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(eventJSON))
+// 	if err != nil {
+// 		fmt.Println("Error making POST request:", err)
+// 		return
+// 	}
+// 	defer resp.Body.Close()
+
+// 	// Read the response body
+// 	body, err := ioutil.ReadAll(resp.Body)
+// 	if err != nil {
+// 		fmt.Println("Error reading response body:", err)
+// 		return
+// 	}
+
+// 	// Parse the JSON response
+// 	var meetLinkResponse MeetLinkResponse
+// 	err = json.Unmarshal(body, &meetLinkResponse)
+// 	if err != nil {
+// 		fmt.Println("Error parsing JSON response:", err)
+// 		return
+// 	}
+
+// 	// Print the generated meet link and event ID
+// 	fmt.Println("Generated meet link:", meetLinkResponse.MeetLink)
+// 	fmt.Println("Event ID:", meetLinkResponse.EventID)
+// }

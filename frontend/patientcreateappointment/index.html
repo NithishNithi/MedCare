@@ -108,11 +108,16 @@
                 </div>
                 <div class="form-group">
                     <label for="date_of_birth">Date of Birth:</label>
-                    <input class="css-input" type="text" id="date_of_birth" name="date_of_birth" required>
+                    <input class="css-input" type="date" id="date_of_birth" name="date_of_birth" required>
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender:</label>
-                    <input class="css-input" type="text" id="gender" name="gender" required>
+                    <select class="css-input-gender" id="gender" name="gender" required>
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="phone_number">Phone Number:</label>
@@ -140,7 +145,7 @@
                 <br><br>
                 <div class="form-group">
                     <label for="datetime">Preferred Date and Time:</label>
-                    <input class="css-input" type="datetime-local" id="datetime" name="datetime" required>
+                    <input class="css-input" type="date" id="datetime" name="datetime" required>
                 </div>
                 <br><br>
                 <h2>Medical History</h2> <br>

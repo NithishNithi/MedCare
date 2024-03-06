@@ -9,7 +9,6 @@ function Submitform(formData) {
   })
     .then(response => response.json())
     .then(data => {
-      console.log("Response received:", data.value);
       if (data && data.value) {
         showToast(data.value, "success", 5000);
         WindowWait('/doctorsignin');
@@ -53,10 +52,25 @@ document.getElementById("js-signin-button").addEventListener("click", (event) =>
 
       console.log(formData);
 
-      if (formData.name.trim() === '' || formData.emailid.trim() === "" || formData.password.trim() === "" || formData.confirmpassword.trim() === "") {
+      if (formData.name.trim() === '' ||
+        formData.dateofbirth.trim() === "" ||
+        formData.gender.trim() === "" ||
+        formData.emailid.trim() === "" ||
+        formData.phonenumber.trim() === "" ||
+        formData.password.trim() === "" ||
+        formData.confirmpassword.trim() === "" ||
+        formData.medicalschool.trim() === "" ||
+        formData.graduationdate.trim() === "" ||
+        formData.licensenumber.trim() === "" ||
+        formData.workexperience.trim() === "" ||
+        formData.specialization.trim() === "" ||
+        formData.photo.trim() === "" ||
+        formData.degreedocument === "" ||
+        formData.licensedocument === "") {
         showToast("Please fill in all the fields", "danger", 5000);
         return false;
       }
+
 
       if (formData.confirmpassword.trim() !== formData.password.trim()) {
         showToast("Password Mismatch", "danger", 5000);

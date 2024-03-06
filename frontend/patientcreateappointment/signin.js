@@ -40,7 +40,7 @@ document.getElementById("js-signin-button").addEventListener("click", (event) =>
         address: document.getElementById("address").value,
         briefdescription: document.getElementById("brief_description").value,
         symptoms: document.getElementById("symptoms").value,
-        datetime: document.getElementById("datetime").value,
+        date: document.getElementById("datetime").value,
         existingconditions: document.getElementById("existing_conditions").value,
         medications: document.getElementById("medications").value,
         pastsurgeriestreatments: document.getElementById("past_surgeries_treatments").value,
@@ -51,7 +51,7 @@ document.getElementById("js-signin-button").addEventListener("click", (event) =>
     console.log(formData);
 
     if (formData.emailid.trim() === "" || formData.name.trim() === "" || formData.dateofbirth.trim() === "" || formData.gender.trim() === "" || formData.phonenumber.trim() === ""
-        || formData.address.trim() === "" || formData.briefdescription.trim() === "" || formData.datetime.trim() === "" || formData.emergencycontactphonenumber.trim() === "") {
+        || formData.address.trim() === "" || formData.briefdescription.trim() === "" || formData.date.trim() === "" || formData.emergencycontactphonenumber.trim() === "") {
         showToast("Please fill in all the fields", "danger", 5000);
         return false;
     }
