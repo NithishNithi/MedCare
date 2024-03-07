@@ -37,8 +37,6 @@ type DoctorTimeline struct {
 	PhoneNumber    string          `json:"phonenumber" bson:"phonenumber"`
 	Specialization string          `json:"specialization" bson:"specialization"`
 	Name           string          `json:"name" bson:"name" binding:"required"`
-	FromDateTime   string          `json:"fromdatetime" bson:"fromdatetime"`
-	ToDateTime     string          `json:"todatetime" bson:"todatetime"`
 	IsAvailable    bool            `json:"isavailable" bson:"isavailable"`
 	IsApproved     bool            `json:"isapproved" bson:"isapproved"`
 	CustomerCount  []CustomerCount `json:"customercount" bson:"customercount"`
