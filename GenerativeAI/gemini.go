@@ -160,7 +160,7 @@ func GenerativeAI(request *models.BookAppointment) (string, error) {
 	// Generate content
 	resp, err := model.GenerateContent(ctx, genai.Text(fmt.Sprintf("I have symptoms: %s. Description: %s. Please find suitable terminologies from medical terminologies: %s", request.Symptoms, request.BriefDescription, terminology+"not more than one terminolgy"+"Note:Only give the terminology")))
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 		return "", err
 	}
 	var result string

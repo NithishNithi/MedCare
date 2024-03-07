@@ -6,6 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt/v5 v5.2.0
 	github.com/google/generative-ai-go v0.8.0
+	github.com/google/uuid v1.6.0
 	github.com/mailgun/mailgun-go/v4 v4.12.0
 	go.mongodb.org/mongo-driver v1.14.0
 	google.golang.org/api v0.168.0

@@ -1,15 +1,20 @@
 package services
 
 import (
+	"bytes"
 	"context"
 	"crypto/rand"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"medcare/constants"
 	"medcare/models"
+	"net/http"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 	"github.com/mailgun/mailgun-go/v4"
 )
 
@@ -90,41 +95,57 @@ func CurrentTime() string {
 }
 
 // //////////////////////////// Send Email - mailGun //////////////////////////////////
-func SendSimpleMessage(request *models.MailGunEmail) (string, error) {
+func SendSimpleMessage(request *models.MailGunEmail, attachmentName string, attachmentData []byte) (string, error) {
 	domain := "sandbox567bd12d5b42484e94273fbe408ababa.mailgun.org"
 	mg := mailgun.NewMailgun(domain, constants.Mailgun_apikey)
 
 	sender := "Excited User <mailgun@sandbox567bd12d5b42484e94273fbe408ababa.mailgun.org>"
 	subject := request.Subject
 	message := request.Message
+	recipient := request.RecipientEmail // Ensure the recipient email address is correctly provided
 
-	m := mg.NewMessage(sender, subject, message, request.RecipientEmail)
+	m := mg.NewMessage(sender, subject, message, recipient)
+
+	// Add the attachment
+	m.AddBufferAttachment(attachmentName, attachmentData)
 
 	ctx := context.Background()
 
-	// Send the message with the context
-	resp, id, err := mg.Send(ctx, m)
-	if err != nil {
+	// Create channels for tracking results and errors
+	resultChan := make(chan string)
+	errorChan := make(chan error)
+
+	// Send emails concurrently
+	go func() {
+		// Send the message with the context
+		resp, id, err := mg.Send(ctx, m)
+		if err != nil {
+			errorChan <- err
+			return
+		}
+		fmt.Println("MailGun :", resp)
+		resultChan <- id
+	}()
+
+	// Wait for results from goroutines
+	select {
+	case id := <-resultChan:
+		return id, nil
+	case err := <-errorChan:
 		return "", err
 	}
-	fmt.Println("MailGun :", resp)
-	return id, nil
 }
 
 type MeetLinkResponse struct {
-	MeetLink string `json:"meet_link"`
-	EventID  string `json:"event_id"`
+	HangoutLink string `json:"hangout_link"`
+	EventID     string `json:"event_id"`
 }
 
 type Event struct {
-	Summary        string `json:"summary"`
-	Start          Date   `json:"start"`
-	End            Date   `json:"end"`
+	Summary        string    `json:"summary"`
+	Start          time.Time `json:"start"`
+	End            time.Time `json:"end"`
 	ConferenceData `json:"conferenceData"`
-}
-
-type Date struct {
-	Date string `json:"date"`
 }
 
 type ConferenceData struct {
@@ -140,61 +161,97 @@ type ConferenceSolutionKey struct {
 	Type string `json:"type"`
 }
 
-// func GetGmmetLink(request *models.BookAppointment)(string,error) {
-// 	url := "http://localhost:5001/create-event"
+// GetMeetLink function definition
+// Update the GetMeetLink function to accept date, fromdatetime, and todatetime as inputs
+func GetMeetLink(request *models.BookAppointment) (string, error, []byte) {
+	url := "http://localhost:5001/create-event"
 
-// 	// Event details
-// 	summary := "Medcare Appointment" // Replace with the summary you want to send dynamically
+	// Event details
+	startDateTime, err := time.Parse("2006-01-02 15:04:05", request.Date+" "+request.FromDateTime)
+	if err != nil {
+		return "", fmt.Errorf("Error parsing start date and time: %w", err), nil
+	}
 
-// 	event := Event{
-// 		Summary: summary,
-// 		Start: Date{
-// 			Date: "2024-03-06", // Replace with the desired date
-// 		},
-// 		End: Date{
-// 			Date: "2024-03-06", // Replace with the desired date
-// 		},
-// 		ConferenceData: ConferenceData{
-// 			CreateRequest: CreateRequest{
-// 				ConferenceSolutionKey: ConferenceSolutionKey{
-// 					Type: "hangoutsMeet",
-// 				},
-// 				RequestId: "abblah",
-// 			},
-// 		},
-// 	}
+	endDateTime, err := time.Parse("2006-01-02 15:04:05", request.Date+" "+request.ToDateTime)
+	if err != nil {
+		return "", fmt.Errorf("Error parsing end date and time: %w", err), nil
+	}
 
-// 	// Convert event struct to JSON
-// 	eventJSON, err := json.Marshal(event)
-// 	if err != nil {
-// 		fmt.Println("Error marshalling event to JSON:", err)
-// 		return
-// 	}
+	event := Event{
+		Summary: "Medcare Appointment",
+		Start:   startDateTime,
+		End:     endDateTime,
+		ConferenceData: ConferenceData{
+			CreateRequest: CreateRequest{
+				ConferenceSolutionKey: ConferenceSolutionKey{
+					Type: "hangoutsMeet",
+				},
+				RequestId: "medcare.",
+			},
+		},
+	}
 
-// 	// Make POST request to the microservice with event details
-// 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(eventJSON))
-// 	if err != nil {
-// 		fmt.Println("Error making POST request:", err)
-// 		return
-// 	}
-// 	defer resp.Body.Close()
+	// Convert event struct to JSON
+	eventJSON, err := json.Marshal(event)
+	if err != nil {
+		return "", fmt.Errorf("Error marshalling event to JSON: %w", err), nil
+	}
 
-// 	// Read the response body
-// 	body, err := ioutil.ReadAll(resp.Body)
-// 	if err != nil {
-// 		fmt.Println("Error reading response body:", err)
-// 		return
-// 	}
+	// Make POST request to the microservice with event details
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(eventJSON))
+	if err != nil {
+		return "", fmt.Errorf("Error making POST request: %w", err), nil
+	}
+	defer resp.Body.Close()
 
-// 	// Parse the JSON response
-// 	var meetLinkResponse MeetLinkResponse
-// 	err = json.Unmarshal(body, &meetLinkResponse)
-// 	if err != nil {
-// 		fmt.Println("Error parsing JSON response:", err)
-// 		return
-// 	}
+	// Check response status
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("Unexpected response status: %d", resp.StatusCode), nil
+	}
 
-// 	// Print the generated meet link and event ID
-// 	fmt.Println("Generated meet link:", meetLinkResponse.MeetLink)
-// 	fmt.Println("Event ID:", meetLinkResponse.EventID)
-// }
+	// Read the response body
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("Error reading response body: %w", err), nil
+	}
+
+	// Parse the JSON response
+	var meetLinkResponse MeetLinkResponse
+	if err := json.Unmarshal(body, &meetLinkResponse); err != nil {
+		return "", fmt.Errorf("Error parsing JSON response: %w", err), nil
+	}
+	icsData, err := GenerateICalendarFile("Medcare Appointment", request.Date+" "+request.FromDateTime, request.Date+" "+request.ToDateTime, meetLinkResponse.HangoutLink)
+	if err != nil {
+		return "", fmt.Errorf("Error generating iCalendar file: %w", err), nil
+	}
+
+	// Return the generated meet link
+	return meetLinkResponse.HangoutLink, nil, icsData
+}
+
+func GenerateICalendarFile(summary, start, end, hangoutLink string) ([]byte, error) {
+	startDateTime, err := time.Parse("2006-01-02 15:04:05", start)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing start date and time: %w", err)
+	}
+
+	endDateTime, err := time.Parse("2006-01-02 15:04:05", end)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing end date and time: %w", err)
+	}
+
+	eventID := uuid.New().String() // Generate a unique event ID
+	event := fmt.Sprintf(`BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+UID:%s
+SUMMARY:%s
+DTSTART:%s
+DTEND:%s
+DESCRIPTION:Join the meeting using the link: %s
+END:VEVENT
+END:VCALENDAR`,
+		eventID, summary, startDateTime.Format("20060102T150405"), endDateTime.Format("20060102T150405"), hangoutLink)
+
+	return []byte(event), nil
+}

@@ -41,4 +41,5 @@ type BookAppointment struct {
 	Notes                   string `json:"notes" bson:"notes"`
 	DoctorSpecialization    string `json:"doctorspecialization" bson:"doctorspecialization"`
 	PreferredDoctorID       string `json:"preferreddoctorid" bson:"preferreddoctorid"`
+	DoctorEmail             string `json:"doctoremail" bson:"doctoremail"`
 }

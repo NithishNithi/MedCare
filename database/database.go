@@ -91,3 +91,18 @@ func init() {
 
 	fmt.Println("DoctorProfile-JWT-Token Connected")
 }
+
+var DoctorAppointmentSchedule_Collection *mongo.Collection
+
+func init() {
+	clientoption := options.Client().ApplyURI(constants.MongoURI)
+
+	client, err := mongo.Connect(context.TODO(), clientoption)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("MongoDb sucessfully connected")
+	DoctorAppointmentSchedule_Collection = client.Database("MedCare").Collection("DoctorAppointmentSchedule")
+
+	fmt.Println("DoctorAppointmentSchedule_Collection Connected")
+}

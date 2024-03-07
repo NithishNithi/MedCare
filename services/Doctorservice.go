@@ -30,8 +30,6 @@ func DoctorSignup(request *models.DoctorSignup) error {
 		return err
 	}
 	request.CreatedTime = CurrentTime()
-	request.AppointmentCount = 0
-	request.IsAvailable = true
 
 	result, err := database.Doctor_Collection.InsertOne(ctx, request)
 	if err != nil {
