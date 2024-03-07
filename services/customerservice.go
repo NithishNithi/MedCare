@@ -272,7 +272,7 @@ func BookAppointment(request *models.BookAppointment) error {
 	}
 	_, err = SendSimpleMessage(patientMessage, "appointment.ics", icsdata)
 	if err != nil {
-		return fmt.Errorf("Error sending email: %w", err)
+		return fmt.Errorf("error sending email: %w", err)
 	}
 
 	return nil

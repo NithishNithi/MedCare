@@ -169,12 +169,12 @@ func GetMeetLink(request *models.BookAppointment) (string, error, []byte) {
 	// Event details
 	startDateTime, err := time.Parse("2006-01-02 15:04:05", request.Date+" "+request.FromDateTime)
 	if err != nil {
-		return "", fmt.Errorf("Error parsing start date and time: %w", err), nil
+		return "", fmt.Errorf("error parsing start date and time: %w", err), nil
 	}
 
 	endDateTime, err := time.Parse("2006-01-02 15:04:05", request.Date+" "+request.ToDateTime)
 	if err != nil {
-		return "", fmt.Errorf("Error parsing end date and time: %w", err), nil
+		return "", fmt.Errorf("error parsing end date and time: %w", err), nil
 	}
 
 	event := Event{
@@ -194,35 +194,35 @@ func GetMeetLink(request *models.BookAppointment) (string, error, []byte) {
 	// Convert event struct to JSON
 	eventJSON, err := json.Marshal(event)
 	if err != nil {
-		return "", fmt.Errorf("Error marshalling event to JSON: %w", err), nil
+		return "", fmt.Errorf("error marshalling event to JSON: %w", err), nil
 	}
 
 	// Make POST request to the microservice with event details
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(eventJSON))
 	if err != nil {
-		return "", fmt.Errorf("Error making POST request: %w", err), nil
+		return "", fmt.Errorf("error making POST request: %w", err), nil
 	}
 	defer resp.Body.Close()
 
 	// Check response status
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("Unexpected response status: %d", resp.StatusCode), nil
+		return "", fmt.Errorf("unexpected response status: %d", resp.StatusCode), nil
 	}
 
 	// Read the response body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", fmt.Errorf("Error reading response body: %w", err), nil
+		return "", fmt.Errorf("error reading response body: %w", err), nil
 	}
 
 	// Parse the JSON response
 	var meetLinkResponse MeetLinkResponse
 	if err := json.Unmarshal(body, &meetLinkResponse); err != nil {
-		return "", fmt.Errorf("Error parsing JSON response: %w", err), nil
+		return "", fmt.Errorf("error parsing JSON response: %w", err), nil
 	}
 	icsData, err := GenerateICalendarFile("Medcare Appointment", request.Date+" "+request.FromDateTime, request.Date+" "+request.ToDateTime, meetLinkResponse.HangoutLink)
 	if err != nil {
-		return "", fmt.Errorf("Error generating iCalendar file: %w", err), nil
+		return "", fmt.Errorf("error generating iCalendar file: %w", err), nil
 	}
 
 	// Return the generated meet link
