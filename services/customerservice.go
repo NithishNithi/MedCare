@@ -229,17 +229,6 @@ func BookAppointment(request *models.BookAppointment) error {
 	request.DoctorSpecialization = specialization
 	request.PreferredDoctorID = doctor.DoctorID
 	request.DoctorEmail = doctor.EmailID
-	result1, err := database.BookAppointment.InsertOne(ctx, request)
-	if err != nil {
-		log.Println("error while inserting  patient appointment", err)
-		return err
-	}
-
-	err = database.BookAppointment.FindOne(ctx, bson.M{"_id": result1.InsertedID}).Decode(&request)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
 
 	res, err, icsdata := GetMeetLink(request)
 	if err != nil {
@@ -270,9 +259,28 @@ func BookAppointment(request *models.BookAppointment) error {
 	Best regards,
 	[MedCare.]`,
 	}
+
+	// _, err = database.BookAppointment.UpdateOne(ctx, bson.M{"_id": result1.InsertedID}, bson.M{"$set": bson.M{"meetlink": res}})
+
+	// if err != nil {
+	// 	log.Println(err)
+	// 	return err
+	// }
 	_, err = SendSimpleMessage(patientMessage, "appointment.ics", icsdata)
 	if err != nil {
 		return fmt.Errorf("error sending email: %w", err)
+	}
+	request.MeetLink = res
+	result1, err := database.BookAppointment.InsertOne(ctx, request)
+	if err != nil {
+		log.Println("error while inserting  patient appointment", err)
+		return err
+	}
+
+	err = database.BookAppointment.FindOne(ctx, bson.M{"_id": result1.InsertedID}).Decode(&request)
+	if err != nil {
+		log.Println(err)
+		return err
 	}
 
 	return nil

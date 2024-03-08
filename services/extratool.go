@@ -33,7 +33,7 @@ func CreateToken(email, customerid string) (string, error) {
 	return tokenString, nil
 }
 
-func ExtractCustomerID(jwtToken string, secretKey string) (string, error) {
+func ExtractID(jwtToken string, secretKey string) (string, error) {
 	// Parse the JWT token
 	token, err := jwt.Parse(jwtToken, func(token *jwt.Token) (interface{}, error) {
 		// Validate the signing method

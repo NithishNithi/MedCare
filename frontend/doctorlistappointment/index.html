@@ -91,7 +91,8 @@
         .form-group button:hover {
             background-color: #13805f;
         }
-        .name123{
+
+        .name123 {
             font-size: xx-large;
         }
     </style>
@@ -104,47 +105,28 @@
         <h2 class="name123"> Doctor</h2>
         <nav class="navbar">
             <a href="/doctorhome">home</a>
-            <a href="/doctorhome">List Appointment</a>
+            <a href="/listappointmentfordoctor">List Appointment</a>
             <a href="/doctorhome">Patient Info</a>
             <a href="/doctorhome">Prescription</a>
-            <a href="/doctorhome">Report</a>
+            <button class="signout-button" id="signout-button">Sign Out</button>
         </nav>
         <div id="menu-btn" class="fas fa-bars"></div>
     </div>
     <!-- Header Section End -->
     <section class="home" id="home">
-        <div>
-            <img src="./image/home-img.svg" alt="home-img.svg" style="width: 250%;">
-        </div>
-
-        <div class="container">
-            <h1 style="text-align: center;">Doctor Signup</h1>
-        
-            <form>
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input class="css-input" type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input class="css-input" type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input class="css-input" type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm_password">Confirm Password:</label>
-                    <input class="css-input" type="password" id="confirm_password" name="confirm_password" required>
-                </div>
-                <div class="form-group">
-                    <button  id="js-signup-button">Signup</button>
-                </div>
-            </form>
-        </div>
-        
-        <div class="toast-overlay" style="margin-top: 220px;"
-         id="toast-overlay"></div> 
+        <div class="toast-overlay" style="margin-top: 220px;" id="toast-overlay"></div>
     </section>
+
+        <div class="product-container" id="product-container">
+            <!-- Task items will be dynamically added here -->
+        </div>
+        <!-- Add this popup element to your HTML -->
+
+
+  <div class="data-display"></div>
+  
+
     <script src='signup.js'></script>
 </body>
+
+</html>

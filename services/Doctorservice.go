@@ -6,6 +6,7 @@ import (
 	"log"
 	"medcare/database"
 	"medcare/models"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -79,4 +80,38 @@ func InsertTokenDoctor(doctorid, email, token string) (string, error) {
 		return "", err
 	}
 	return token1.Token, nil
+}
+
+func ListAppointment(request *models.ListAppointmentforDoctor) ([]models.BookAppointment, error) {
+	ctx := context.Background()
+	currentTime := time.Now()
+	currentDateStr := currentTime.Format("2006-01-02")
+	currentTimeStr := currentTime.Format("15:04:05")
+	filter := bson.M{
+		"preferreddoctorid": request.DoctorID,
+		"$or": []bson.M{
+			// Appointments on the current date and starting from the current time onwards
+			bson.M{"date": currentDateStr, "fromdatetime": bson.M{"$gte": currentTimeStr}},
+			// Appointments on future dates
+			bson.M{"date": bson.M{"$gt": currentDateStr}},
+		},
+	}
+
+	cursor, err := database.BookAppointment.Find(ctx, filter)
+	if err != nil {
+		log.Println("error finding", err)
+		return nil, err
+	}
+	var appointments []models.BookAppointment
+	for cursor.Next(ctx) {
+		var appointment models.BookAppointment
+		err := cursor.Decode(&appointment)
+		if err != nil {
+			log.Println("error decoding", err)
+			return nil, err
+		}
+		appointments = append(appointments, appointment)
+	}
+
+	return appointments, nil
 }

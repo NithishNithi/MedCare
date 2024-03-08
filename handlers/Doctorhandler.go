@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"log"
+	"medcare/constants"
 	"medcare/models"
 	"medcare/services"
 	"net/http"
@@ -54,4 +55,35 @@ func DoctorSignin(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Credentials"})
 	}
+}
+
+func ListAppointment(c *gin.Context) {
+	var request *models.ListAppointmentforDoctor
+	err := c.ShouldBindJSON(&request)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		return
+	}
+	token := request.Token
+	if token == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Token not found"})
+		return
+	}
+	Doctorid, err := services.ExtractID(token, constants.SecretKey)
+	if err != nil {
+		log.Printf("Error extracting CustomerID: %v\n", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Token"})
+		return
+	}
+	request.DoctorID = Doctorid
+	request.Token = ""
+
+	response, err := services.ListAppointment(request)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": response})
+
 }

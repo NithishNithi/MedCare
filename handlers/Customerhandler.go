@@ -68,7 +68,7 @@ func BookAppointment(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Token not found"})
 		return
 	}
-	Customerid, err := services.ExtractCustomerID(token, constants.SecretKey)
+	Customerid, err := services.ExtractID(token, constants.SecretKey)
 	if err != nil {
 		log.Printf("Error extracting CustomerID: %v\n", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Token"})

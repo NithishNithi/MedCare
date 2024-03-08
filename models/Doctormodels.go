@@ -45,3 +45,8 @@ type CustomerCount struct {
 	Date             string `json:"date" bson:"date"`
 	AppointmentCount int    `json:"appointmentcount" bson:"appointmentcount"`
 }
+
+type ListAppointmentforDoctor struct {
+	Token    string `json:"token" bson:"token" binding:"required"`
+	DoctorID string `json:"doctorid" bson:"doctorid"`
+}
