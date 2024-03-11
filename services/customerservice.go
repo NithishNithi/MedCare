@@ -12,6 +12,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func CustomerSignUp(request *models.CustomerSignUp) error {
@@ -83,6 +84,7 @@ func InsertToken(customerid, email, token string) (string, error) {
 
 func BookAppointment(request *models.BookAppointment) error {
 	ctx := context.Background()
+	request.AppointmentID = GenerateIDBA()
 	specialization, err := generativeai.GenerativeAI(request)
 	if err != nil {
 		log.Println(err)
@@ -271,6 +273,7 @@ func BookAppointment(request *models.BookAppointment) error {
 		return fmt.Errorf("error sending email: %w", err)
 	}
 	request.MeetLink = res
+	request.CreatedTime = CurrentTime()
 	result1, err := database.BookAppointment.InsertOne(ctx, request)
 	if err != nil {
 		log.Println("error while inserting  patient appointment", err)
@@ -284,4 +287,57 @@ func BookAppointment(request *models.BookAppointment) error {
 	}
 
 	return nil
+}
+
+func ListPatientReport(request *models.ListReport) (*models.ListReport, error) {
+	ctx := context.Background()
+	fmt.Println("", request.CustomerID)
+	filter := bson.M{"customerid": request.CustomerID}
+
+	// Define the options to sort by CreatedTime in descending order
+	var result models.ListReport
+	opts := options.FindOne().SetSort(bson.D{{"createdtime", -1}})
+	err := database.BookAppointment.FindOne(ctx, filter, opts).Decode(&result)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+
+			return nil, fmt.Errorf("could not find")
+		}
+		return nil, err
+	}
+
+	var prescriptions []models.CreatePrescription
+	cursor, err := database.Prescription_Collection.Find(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	// Use cursor.All to decode all documents into the prescriptions slice
+	if err := cursor.All(ctx, &prescriptions); err != nil {
+		return nil, err
+	}
+
+	result.Prescriptions = prescriptions
+
+	return &result, nil
+}
+
+func ListPrescription(request *models.ListPrescription) ([]models.ListPrescription, error) {
+	ctx := context.Background()
+	filter := bson.M{"customerid": request.CustomerID}
+	cursor, err := database.Prescription_Collection.Find(ctx, filter)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+	var result []models.ListPrescription
+
+	err = cursor.All(ctx, &result)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	return result, nil
 }

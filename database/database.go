@@ -106,3 +106,18 @@ func init() {
 
 	fmt.Println("DoctorAppointmentSchedule_Collection Connected")
 }
+
+var Prescription_Collection *mongo.Collection
+
+func init() {
+	clientoption := options.Client().ApplyURI(constants.MongoURI)
+
+	client, err := mongo.Connect(context.TODO(), clientoption)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("MongoDb sucessfully connected")
+	Prescription_Collection = client.Database("MedCare").Collection("Prescription")
+
+	fmt.Println("Prescription_Collection Connected")
+}

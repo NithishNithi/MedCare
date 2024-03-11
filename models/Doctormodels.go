@@ -50,3 +50,18 @@ type ListAppointmentforDoctor struct {
 	Token    string `json:"token" bson:"token" binding:"required"`
 	DoctorID string `json:"doctorid" bson:"doctorid"`
 }
+
+type CreatePrescription struct {
+	CustomerId      string       `json:"customerid" bson:"customerid"`
+	Token           string       `json:"token,omitempty" bson:"token,omitempty"`
+	AppointmentID   string       `json:"appointmentid" bson:"appointmentid"`
+	DoctorID        string       `json:"doctorid" bson:"doctorid"`
+	Instructions    string       `json:"instruction" bson:"instruction"`
+	NextAppointment string       `json:"nextappointment" bson:"nextappointment"`
+	Medication      []Medication `json:"medication" bson:"medication"`
+	CreatedTime     string       `json:"createdtime" bson:"createdtime"`
+}
+type Medication struct {
+	Name      string `json:"name" bson:"name"`
+	TimeRange string `json:"timerange" bson:"timerange"`
+}

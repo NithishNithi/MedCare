@@ -12,17 +12,6 @@ body{
     --text-shadow: .4rem .4rem 0 rgba(0, 0, 0, .2);
     --border: .2rem solid var(--green);
 }
-.form-group {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    transition: all .2s ease-out;
-    text-transform: none !important;
-}
 
 * {
     font-family: 'Poppins', sans-serif;
@@ -35,7 +24,6 @@ body{
     text-decoration: none;
     transition: all .2s ease-out;
 }
-
 
 html {
     font-size: 62.5%;
@@ -717,6 +705,12 @@ section:nth-child(even) {
     margin: 0 auto;
     /* Center the image horizontally */
 }
+
+.css-input {
+    text-transform: none;
+}
+
+
 .toast-row { 
     display: flex; 
     justify-content: center; 
@@ -887,4 +881,40 @@ button.custom-toast {
         width: 0%; 
     } 
 }
+
+
+.signout-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: .5rem;
+    padding-left: 1rem;
+    border: var(--border);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    color: var(--green);
+    cursor: pointer;
+    font-size: 1.7rem;
+    background: #fff;
+    margin-left: 50px;
+}
+
+.signout-button span {
+    padding: .7rem 1rem;
+    border-radius: .5rem;
+    background: var(--green);
+    color: #fff;
+    margin-left: .5rem;
+}
+
+.signout-button:hover {
+    background: var(--green);
+    color: #fff;
+}
+
+.signout-button:hover span {
+    color: var(--green);
+    background: #fff;
+    margin-left: 1rem;
+}
+
 

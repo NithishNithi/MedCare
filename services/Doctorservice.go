@@ -115,3 +115,28 @@ func ListAppointment(request *models.ListAppointmentforDoctor) ([]models.BookApp
 
 	return appointments, nil
 }
+
+func CreatePrescription(request models.CreatePrescription) error {
+	ctx := context.Background()
+	request.Token = ""
+	var appointment models.BookAppointment
+	err := database.BookAppointment.FindOne(ctx, bson.M{"appointmentid": request.AppointmentID}).Decode(&appointment)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	request.CustomerId = appointment.CustomerID
+	request.CreatedTime = CurrentTime()
+	response, err := database.Prescription_Collection.InsertOne(ctx, request)
+	if err != nil {
+		log.Println("error inserting", err)
+		return err
+	}
+	var Prescription *models.CreatePrescription
+	err = database.Prescription_Collection.FindOne(ctx, bson.M{"_id": response.InsertedID}).Decode(&Prescription)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
+}

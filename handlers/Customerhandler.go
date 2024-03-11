@@ -80,7 +80,64 @@ func BookAppointment(c *gin.Context) {
 	if err != nil {
 		log.Println("error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Appointment Successfully Created"})
 
+}
+
+func ListPatientReport(c *gin.Context) {
+	var request *models.ListReport
+	err := c.ShouldBindJSON(&request)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+		return
+	}
+	token := request.Token
+	if token == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Token not found"})
+		return
+	}
+	Customerid, err := services.ExtractID(token, constants.SecretKey)
+	if err != nil {
+		log.Printf("Error extracting CustomerID: %v\n", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Token"})
+		return
+	}
+	request.CustomerID = Customerid
+	request.Token = ""
+	reports, err := services.ListPatientReport(request)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": reports})
+}
+
+func ListPrescription(c *gin.Context) {
+	var request *models.ListPrescription
+	err := c.ShouldBindJSON(&request)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+		return
+	}
+	token := request.Token
+	if token == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Token not found"})
+		return
+	}
+	Customerid, err := services.ExtractID(token, constants.SecretKey)
+	if err != nil {
+		log.Printf("Error extracting CustomerID: %v\n", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Token"})
+		return
+	}
+	request.CustomerID = Customerid
+	request.Token = ""
+	prescriptions, err := services.ListPrescription(request)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"messsage": prescriptions})
 }

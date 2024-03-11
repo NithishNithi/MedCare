@@ -17,6 +17,9 @@ func SetupRoutes(r *gin.Engine) {
 	r.Static("/patientcreateappointment", "/home/nithish/Desktop/medcare/frontend/patientcreateappointment")
 	r.Static("/doctorenroll", "/home/nithish/Desktop/medcare/frontend/doctorenroll")
 	r.Static("/listappointmentfordoctor", "/home/nithish/Desktop/medcare/frontend/doctorlistappointment")
+	r.Static("/createprescriptionfordoctor", "/home/nithish/Desktop/medcare/frontend/doctorprescription")
+	r.Static("/patientreport", "/home/nithish/Desktop/medcare/frontend/patientreport")
+	r.Static("/doctorreport", "/home/nithish/Desktop/medcare/frontend/doctorreport")
 
 	r.POST("/signupcustomer", handlers.CustomerSignup)
 	r.POST("/signincustomer", handlers.CustomerSignIn)
@@ -24,4 +27,7 @@ func SetupRoutes(r *gin.Engine) {
 	r.POST("/signindoctor", handlers.DoctorSignin)
 	r.POST("/bookappointment", handlers.BookAppointment)
 	r.POST("/listappointments", handlers.ListAppointment)
+	r.POST("/createprescription", handlers.CreatePrescription)
+	r.POST("/listpatientreport", handlers.ListPatientReport)
+	r.POST("/listpatientprescription", handlers.ListPrescription)
 }

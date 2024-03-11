@@ -87,6 +87,19 @@ func GenerateIDDOC() string {
 
 	return "DOC" + id
 }
+func GenerateIDBA() string {
+	length := 4
+	randomBytes := make([]byte, length)
+	// Use crypto/rand to generate random bytes
+	_, err := rand.Read(randomBytes)
+	if err != nil {
+		panic(err) // Handle error appropriately
+	}
+	// Convert random bytes to a hexadecimal string
+	id := hex.EncodeToString(randomBytes)
+
+	return "BA" + id
+}
 
 func CurrentTime() string {
 	currentTime := time.Now()

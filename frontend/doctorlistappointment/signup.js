@@ -100,10 +100,7 @@ function DisplayAppoinment(id, gender, email, dis, symptom, date, time, medicati
       <p>Medications: ${medications}</p>
       <p>Past Surgeries/Treatments: ${Past}</p>
       <p>Notes: ${notes}</p>
-      <a href="${meetlink}" target="_blank" class="meetlink-button">Meet-Link</a>
-
-
-      
+      <a href="${meetlink}" target="_blank" class="meetlink-button">Meet-Link</a>     
     </div>`;
 }
 function DeleteData(){
@@ -123,9 +120,7 @@ function WindowWait(str) {
 
 
 function signOut() {
-  // Clear session storage
   sessionStorage.clear();
-  // Redirect to the sign-in page (replace 'signin.html' with the actual sign-in page URL)
   window.location.href = '/home';
 }
 // Attach the sign-out function to the button click event

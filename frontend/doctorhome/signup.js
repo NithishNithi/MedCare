@@ -104,9 +104,7 @@ function WindowWait(str) {
 
 
 function signOut() {
-  // Clear session storage
   sessionStorage.clear();
-  // Redirect to the sign-in page (replace 'signin.html' with the actual sign-in page URL)
   window.location.href = '/home';
 }
 // Attach the sign-out function to the button click event
