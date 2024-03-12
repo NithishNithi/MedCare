@@ -48,7 +48,6 @@ document.getElementById("js-signin-button").addEventListener("click", (event) =>
         emergencycontactphonenumber: document.getElementById("emergency_contact_phone_number").value,
         notes: document.getElementById("notes").value
     };
-    console.log(formData);
 
     if (formData.emailid.trim() === "" || formData.name.trim() === "" || formData.dateofbirth.trim() === "" || formData.gender.trim() === "" || formData.phonenumber.trim() === ""
         || formData.address.trim() === "" || formData.briefdescription.trim() === "" || formData.date.trim() === "" || formData.emergencycontactphonenumber.trim() === "") {

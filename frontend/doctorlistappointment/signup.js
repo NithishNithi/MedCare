@@ -9,7 +9,6 @@ function Submitform(formData) {
   })
     .then(response => response.json())
     .then(data => {
-      console.log("Response received:", data.message);
       const productContainer = document.getElementById('product-container');
       if (data && data.message) {
         data.message.sort((a, b) => {

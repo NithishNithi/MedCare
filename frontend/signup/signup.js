@@ -11,7 +11,6 @@ function Submitform(formData) {
   })
     .then(response => response.json())
     .then(data => {
-      console.log("Response received:", data.value);
       if (data && data.value) {
         showToast(data.value, "success", 5000);
 

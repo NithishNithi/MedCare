@@ -109,7 +109,6 @@ function SendMedication(){
 
     };
     Submitform(formData)
-    console.log(formData);
 }
 
 
@@ -134,7 +133,6 @@ function GetMedicationData() {
             medications.push({ name: medication, timerange: time });
         }
     }
-     console.log(medications)
     return medications; // Return array of medication data
 }
 

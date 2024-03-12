@@ -9,7 +9,6 @@ function Submitform(formData) {
   })
     .then(response => response.json())
     .then(data => {
-      console.log("Response received:", data.value);
       if (data && data.message) {
         // Display the medical report
         showMedicalReport(data.message);
@@ -229,7 +228,6 @@ function ListRecord() {
   const formData = {
     token: tokenData.token,
   };
-  console.log(formData);
   Submitform(formData)
 }
 

@@ -50,7 +50,6 @@ document.getElementById("js-signin-button").addEventListener("click", (event) =>
       formData.licensedocument = licenseDocBase64;
       formData.photo = photoBase64;
 
-      console.log(formData);
 
       if (formData.name.trim() === '' ||
         formData.dateofbirth.trim() === "" ||

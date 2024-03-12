@@ -1,7 +1,7 @@
 
 function Submitform(formData) {
 
-  console.log("Request sent");
+
   fetch("/listpatientreport", {
     method: "POST",
     headers: {
@@ -11,7 +11,7 @@ function Submitform(formData) {
   })
     .then(response => response.json())
     .then(data => {
-      console.log("Response received:", data.message);
+    
       if (data && data.message) {
         showToast("Fetched", "success", 5000);
       } else {
@@ -30,11 +30,10 @@ const tokenDataString = sessionStorage.getItem('token');
 const tokenData = JSON.parse(tokenDataString);
 
 function ListRecord(){
-  console.log("-----------------")
+
   const formData = {
     token : tokenData.token,
   };
-  console.log(formData);
   Submitform(formData)
 }
 

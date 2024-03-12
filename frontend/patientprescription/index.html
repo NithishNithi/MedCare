@@ -22,14 +22,78 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        .name123 {
-            font-size: xx-large;
-            margin-left: -100px;
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 10px;
+            margin-left: 40%;
+            display: block;
         }
 
-        .name1234 {
-            text-align: center;
-            font-size: 25px;
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .css-input {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            text-transform: none;
+            transition: all .2s ease-out;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 18px;
+            color: var(--black);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background: var(--green);
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .js-err {
+            background-color: #777777;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: -600px;
+            margin-left: -10px;
+            font-size: x-large;
+
+        }
+
+        .form-group button:hover {
+            background-color: #13805f;
+        }
+
+        .name123 {
+            font-size: xx-large;
         }
     </style>
 </head>
@@ -45,6 +109,7 @@
             <a href="/patientcreateappointment">book appointment</a>
             <a href="#review">review</a>
             <a href="/patientreport">patientreport</a>
+            <a href="/patientprescriptionlist">Precription</a>
             <button class="signout-button" id="signout-button">Sign Out</button>
 
         </nav>
@@ -57,5 +122,13 @@
      
         <div class="toast-overlay" style="margin-top: 220px;" id="toast-overlay"></div>
     </section>
+    
+    <div class="product-container" id="product-container">
+        <!-- Task items will be dynamically added here -->
+    </div>
+    <!-- Add this popup element to your HTML -->
+
+
+<div class="data-display"></div>
     <script src='signin.js'></script>
 </body>

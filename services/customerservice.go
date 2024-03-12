@@ -291,7 +291,6 @@ func BookAppointment(request *models.BookAppointment) error {
 
 func ListPatientReport(request *models.ListReport) (*models.ListReport, error) {
 	ctx := context.Background()
-	fmt.Println("", request.CustomerID)
 	filter := bson.M{"customerid": request.CustomerID}
 
 	// Define the options to sort by CreatedTime in descending order

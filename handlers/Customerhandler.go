@@ -139,5 +139,5 @@ func ListPrescription(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"messsage": prescriptions})
+	c.JSON(http.StatusOK, gin.H{"message": prescriptions})
 }
