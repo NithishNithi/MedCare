@@ -16,13 +16,13 @@ function Submitform(formData) {
           const dateB = new Date(b.date + ' ' + b.fromdatetime);
           return dateA - dateB;
         });
-    
+
         data.message.forEach(task => {
           const taskCard = document.createElement('div');
           taskCard.classList.add('product');
 
           taskCard.innerHTML = `
-              <div class="basic-details" onclick="DisplayAppoinment(' ${task.customerid}',' ${task.gender}','${task.emailid}','${task.briefdescription}',' ${task.symptoms}','${task.date}',' ${task.fromdatetime}','${task.medications}',' ${task.pastsurgeriestreatments}','${task.notes}','${task.name}','${task.meetlink}')">
+              <div class="basic-details" onclick="DisplayAppoinment(' ${task.appointmentid}',' ${task.customerid}',' ${task.gender}','${task.emailid}','${task.briefdescription}',' ${task.symptoms}','${task.date}',' ${task.fromdatetime}','${task.medications}',' ${task.pastsurgeriestreatments}','${task.notes}','${task.name}','${task.meetlink}')">
               <p>CustomerID: ${task.customerid}</p>
                 <span>Name: ${task.name}</span>
                 <p>Date of Appointment: ${task.date} ${task.fromdatetime}</p>
@@ -81,15 +81,16 @@ const showToast = (
 
   document.body.appendChild(box);
 };
-function DisplayAppoinment(id, gender, email, dis, symptom, date, time, medications, Past, notes,name,meetlink) {
+function DisplayAppoinment(appointmentid, id, gender, email, dis, symptom, date, time, medications, Past, notes, name, meetlink) {
   document.querySelectorAll('.product').forEach(element => {
     element.style.display = 'none';
   });
-  html =  document.getElementById('product-container').innerHTML 
-  document.getElementById('product-container').innerHTML = html +`
+  html = document.getElementById('product-container').innerHTML
+  document.getElementById('product-container').innerHTML = html + `
     <div class="product1">
     <p onclick="DeleteData()"class="back"><img src="https://www.freepnglogos.com/uploads/x-png/dangerour-x-red-circle-dont-enter-close-health-and-wellness-icon-png-16.png" height="20px"></p>
     <p>Name: ${name}</p>
+    <p>AppointmentID: ${appointmentid}</p>
       <p>CustomerID: ${id}</p>
       <p>Gender: ${gender}</p>
       <p>EmailID: ${email}</p>
@@ -102,7 +103,7 @@ function DisplayAppoinment(id, gender, email, dis, symptom, date, time, medicati
       <a href="${meetlink}" target="_blank" class="meetlink-button">Meet-Link</a>     
     </div>`;
 }
-function DeleteData(){
+function DeleteData() {
   document.querySelectorAll('.product1').forEach(element => {
     element.remove();
   });

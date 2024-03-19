@@ -54,29 +54,6 @@ function WindowWait(str) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 let icon = {
     success:
         '<span class="material-symbols-outlined">task_alt</span>',

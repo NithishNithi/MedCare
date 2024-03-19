@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+
 	generativeai "medcare/GenerativeAI"
 	"medcare/database"
 
@@ -231,6 +232,7 @@ func BookAppointment(request *models.BookAppointment) error {
 	request.DoctorSpecialization = specialization
 	request.PreferredDoctorID = doctor.DoctorID
 	request.DoctorEmail = doctor.EmailID
+	request.DoctorName = doctor.Name
 
 	res, err, icsdata := GetMeetLink(request)
 	if err != nil {
@@ -238,29 +240,7 @@ func BookAppointment(request *models.BookAppointment) error {
 		return err
 	}
 	fmt.Println("meeetlink", res)
-
-	patientMessage := &models.MailGunEmail{
-		RecipientEmail: request.EmailID,
-		Subject:        "Reg - Medcare Appointment",
-		Message: `Dear [` + request.Name + `],
-
-	This is to confirm your appointment with [` + doctor.Name + `] scheduled on [` + request.Date + `] at [` + request.FromDateTime + `]. 
-
-	Appointment Details:
-	- Doctor: [` + doctor.Name + `]
-	- Date: [` + request.Date + `]
-	- Time: [` + request.FromDateTime + `]
-	- Virtual Meeting Link: [` + res + `]
-
-	Please make sure to be available and ready for the appointment at least 5 minutes before the scheduled time.
-
-	If you have any questions or need to reschedule, please contact us at [Your Contact Information].
-
-	We look forward to seeing you.
-
-	Best regards,
-	[MedCare.]`,
-	}
+	request.MeetLink = res
 
 	// _, err = database.BookAppointment.UpdateOne(ctx, bson.M{"_id": result1.InsertedID}, bson.M{"$set": bson.M{"meetlink": res}})
 
@@ -268,11 +248,10 @@ func BookAppointment(request *models.BookAppointment) error {
 	// 	log.Println(err)
 	// 	return err
 	// }
-	_, err = SendSimpleMessage(patientMessage, "appointment.ics", icsdata)
+	err = SendEmailforAppointment(request, "appointment.ics", icsdata)
 	if err != nil {
 		return fmt.Errorf("error sending email: %w", err)
 	}
-	request.MeetLink = res
 	request.CreatedTime = CurrentTime()
 	result1, err := database.BookAppointment.InsertOne(ctx, request)
 	if err != nil {

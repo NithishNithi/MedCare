@@ -29,6 +29,7 @@ const tokenData = JSON.parse(tokenDataString);
 
 document.getElementById("js-signin-button").addEventListener("click", (event) => {
     event.preventDefault();
+    
     const formData = {
         token: tokenData.token,
         customerid: "",

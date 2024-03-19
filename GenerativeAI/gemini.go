@@ -6,6 +6,8 @@ import (
 	"log"
 	"medcare/constants"
 	"medcare/models"
+	"sync"
+	"time"
 
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/option"
@@ -145,37 +147,82 @@ Tropical Medicine
 Vascular Medicine
 Venous and Lymphatic Medicine`
 
+var (
+	cache = struct {
+		sync.RWMutex
+		m map[string]string
+	}{m: make(map[string]string)}
+	cacheMutex sync.RWMutex
+)
+
 func GenerativeAI(request *models.BookAppointment) (string, error) {
+	startTime := time.Now()
+	defer func() {
+		endTime := time.Now()
+		fmt.Printf("Time taken for GenerativeAI: %v\n", endTime.Sub(startTime))
+	}()
+
+	cacheMutex.RLock()
+	cachedContent, found := getFromCache(cacheKey(request))
+	cacheMutex.RUnlock()
+
+	if found {
+		log.Println("Cache hit")
+		return cachedContent, nil
+	}
+
+	log.Println("Cache miss - performing API call")
+
 	ctx := context.Background()
-	// Set up the API key
+
 	client, err := genai.NewClient(ctx, option.WithAPIKey(constants.Gemini_apiKey))
 	if err != nil {
-		log.Println(err)
+		log.Println("Error creating GenAI client:", err)
 		return "", err
-
 	}
 	defer client.Close()
-	// Specify the model to use
+
 	model := client.GenerativeModel("gemini-pro")
-	// Generate content
-	resp, err := model.GenerateContent(ctx, genai.Text(fmt.Sprintf("I have symptoms: %s. Description: %s. Please find suitable terminologies from medical terminologies: %s", request.Symptoms, request.BriefDescription, terminology+"not more than one terminolgy"+"Note:Only give the terminology")))
+	prompt := genai.Text(fmt.Sprintf("I have symptoms: %s. Description: %s. Please find suitable terminologies from medical terminologies: %s", request.Symptoms, request.BriefDescription, terminology+" not more than one terminology"))
+
+	resp, err := model.GenerateContent(ctx, prompt)
 	if err != nil {
-		log.Println(err)
+		log.Println("Error generating content:", err)
 		return "", err
 	}
+
 	var result string
 	for _, item := range resp.Candidates {
-		fmt.Println("Generated content:", item.Content.Parts[0])
-		result = (RetrieveResponce(item.Content.Parts))
-
+		result += RetrieveResponse(item.Content.Parts)
 	}
+
+	setCache(cacheKey(request), result)
+
 	return result, nil
 }
 
-func RetrieveResponce(parts []genai.Part) string {
+func RetrieveResponse(parts []genai.Part) string {
 	var result string
 	for _, part := range parts {
 		result += fmt.Sprint(part)
 	}
+	fmt.Println("resuolt", result)
 	return result
+}
+
+func cacheKey(request *models.BookAppointment) string {
+	return fmt.Sprintf("%s|%s", request.Symptoms, request.BriefDescription)
+}
+
+func getFromCache(key string) (string, bool) {
+	cacheMutex.RLock()
+	defer cacheMutex.RUnlock()
+	val, found := cache.m[key]
+	return val, found
+}
+
+func setCache(key, value string) {
+	cacheMutex.Lock()
+	defer cacheMutex.Unlock()
+	cache.m[key] = value
 }

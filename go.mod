@@ -7,6 +7,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.2.0
 	github.com/google/generative-ai-go v0.8.0
 	github.com/google/uuid v1.6.0
+	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
 	github.com/mailgun/mailgun-go/v4 v4.12.0
 	go.mongodb.org/mongo-driver v1.14.0
 	google.golang.org/api v0.168.0

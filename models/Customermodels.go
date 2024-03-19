@@ -45,6 +45,7 @@ type BookAppointment struct {
 	DoctorEmail             string `json:"doctoremail" bson:"doctoremail"`
 	MeetLink                string `json:"meetlink" bson:"meetlink"`
 	CreatedTime             string `json:"createdtime" bson:"createdtime"`
+	DoctorName              string `json:"doctorname" bson:"doctorname"`
 }
 
 type ListReport struct {
