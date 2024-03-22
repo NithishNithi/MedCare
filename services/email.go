@@ -55,7 +55,7 @@ func (sender *GmailSender) SendEmail(subject string, content string, to []string
 	return e.Send(smtpServerAddress, smtpAuth)
 }
 
-var sender = NewGmailSender("MedCare.", "spotifyfornithi@gmail.com", "nwyl xnia cddy hfbw")
+var sender = NewGmailSender("MedCare.", "--Enter MailID---", "----- Mail Auth Code -----")
 
 func SendEmailforAppointment(request *models.BookAppointment, attachmentName string, attachmentData []byte) error {
 	subject := "Reg - Medcare Appointment"
