@@ -31,4 +31,6 @@ func SetupRoutes(r *gin.Engine) {
 	r.POST("/createprescription", handlers.CreatePrescription)
 	r.POST("/listpatientreport", handlers.ListPatientReport)
 	r.POST("/listpatientprescription", handlers.ListPrescription)
+	r.POST("/listblogs", handlers.ListBlogs)
+	r.POST("/listcounts", handlers.Count)
 }

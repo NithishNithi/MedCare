@@ -140,3 +140,15 @@ func CreatePrescription(request models.CreatePrescription) error {
 	}
 	return nil
 }
+
+func CountDoctors() (int64, error) {
+	ctx := context.Background()
+	response, err := database.Doctor_Collection.CountDocuments(ctx, bson.M{"isapproved": true})
+	if err != nil {
+		log.Println(err)
+		return 0, err
+	}
+
+	return response, nil
+
+}

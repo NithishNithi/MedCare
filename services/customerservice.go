@@ -319,3 +319,15 @@ func ListPrescription(request *models.ListPrescription) ([]models.ListPrescripti
 	}
 	return result, nil
 }
+
+func CountPatient() (int64, error) {
+	ctx := context.Background()
+	response, err := database.Customer_Collection.CountDocuments(ctx, bson.M{})
+	if err != nil {
+		log.Println(err)
+		return 0, err
+	}
+
+	return response, nil
+
+}
