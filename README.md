@@ -1,27 +1,4 @@
-<p align="center">
-  <p align="center">
-   <img width="128px" src="/assets/logo.png" />
-  </p>
-  
 
-	<h1 align="center"><b>Medcare</b></h1>
-	<p align="center">
-		Medcare aims to revolutionize hospital management by leveraging advanced technologies to optimize operations and enhance patient care delivery
-    <br />
-    <a href="https://gitbutler.com"><strong>gitbutler.com »</strong></a>
-    <br />
-    <br />
-    <b>Download for </b>
-    macOS (<a href="https://app.gitbutler.com/downloads/release/darwin/aarch64/dmg">Apple Silicon</a> |
-      <a href="https://app.gitbutler.com/downloads/release/darwin/x86_64/dmg">Intel</a>) ·
-		Linux (<a href="https://app.gitbutler.com/downloads/release/linux/x86_64/gz">AppImage</a> |
-       <a href="https://app.gitbutler.com/downloads/release/linux/x86_64/deb">deb</a>)
-    <br />
-    <i>~ Link for Windows will be added once a release is available. ~</i>
-  </p>
-</p>
-
-<br/>
 
 
 ![gitbutler_client](https://github.com/gitbutlerapp/gitbutler/assets/16262535/0d180bfd-7a3c-4a66-a923-30534c5a8197)
