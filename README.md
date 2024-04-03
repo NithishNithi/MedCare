@@ -4,21 +4,21 @@ Medcare is a revolutionary solution aimed at modernizing hospital operations and
 
 ## How does it work?
 ### Patient-Doctor Interaction:
-<h4>Appointment Scheduling:</h4>h4> Patients can log in to the UHMS portal and schedule appointments with their preferred doctors at their convenience. They can view available time slots, select a suitable appointment time, and receive confirmation of their booking.<br><br>
-Remote Consultations: Through the platform, patients can connect with their doctors via online meetings. These remote consultations allow for real-time communication, enabling patients to discuss their health concerns, receive medical advice, and seek prescriptions from the comfort of their homes.<br>
+<h4>Appointment Scheduling:</h4> Patients can log in to the Medcare portal and schedule appointments with their preferred doctors at their convenience. They can view available time slots, select a suitable appointment time, and receive confirmation of their booking.<br><br>
+<h4>Remote Consultations:</h4> Through the platform, patients can connect with their doctors via online meetings. These remote consultations allow for real-time communication, enabling patients to discuss their health concerns, receive medical advice, and seek prescriptions from the comfort of their homes.<br>
 ### Doctor Verification:
-Authentication Process: UHMS implements a doctor verification mechanism to ensure that only legitimate healthcare professionals join the platform. Doctors are required to undergo a verification process where their credentials and qualifications are authenticated before they are approved to interact with patients.<br><br>
-Access to Medical Records:
-Secure Access: Patients have access to their medical records and reports through the UHMS portal. They can securely view their past medical history, test results, prescriptions, and other relevant information, empowering them to take control of their healthcare journey.
+<h4>Authentication Process:</h4> Medcare implements a doctor verification mechanism to ensure that only legitimate healthcare professionals join the platform. Doctors are required to undergo a verification process where their credentials and qualifications are authenticated before they are approved to interact with patients.<br><br>
+<h4>Access to Medical Records:</h4>
+<h4>Secure Access:</h4> Patients have access to their medical records and reports through the Medcare portal. They can securely view their past medical history, test results, prescriptions, and other relevant information, empowering them to take control of their healthcare journey.
 ### Prescription Management:
-Digital Prescriptions: Doctors can generate digital prescriptions for their patients directly through the UHMS platform. They can prescribe medications, dosage instructions, and other relevant details, which are then accessible to patients for fulfillment at pharmacies.
+<h4>Digital Prescriptions:</h4> Doctors can generate digital prescriptions for their patients directly through the Medcare platform. They can prescribe medications, dosage instructions, and other relevant details, which are then accessible to patients for fulfillment at pharmacies.
 ### Seamless Communication:
-Efficient Communication Channels: UHMS provides efficient communication channels for patients and doctors to exchange information, ask questions, and address concerns. Whether it's through text-based messaging or video consultations, the platform ensures that communication is smooth and effective.
+<h4>Efficient Communication Channels:</h4> Medcare provides efficient communication channels for patients and doctors to exchange information, ask questions, and address concerns. Whether it's through text-based messaging or video consultations, the platform ensures that communication is smooth and effective.
 ### Online-Based Platform:
-Accessibility: 
-Being an online-based platform, UHMS offers accessibility to patients and doctors from anywhere with an internet connection. This eliminates geographical barriers, allowing individuals to receive quality healthcare services regardless of their location.<br>
+<h4>Accessibility: </h4>
+Being an online-based platform, Medcare offers accessibility to patients and doctors from anywhere with an internet connection. This eliminates geographical barriers, allowing individuals to receive quality healthcare services regardless of their location.<br>
 ### Centralized Management:
-Centralized Database: UHMS centralizes patient records, appointment schedules, and communication logs, making it easier for healthcare providers to manage and track patient interactions. This centralized approach enhances efficiency and reduces the likelihood of errors or miscommunications.
+<h4>Centralized Database:</h4> Medcare centralizes patient records, appointment schedules, and communication logs, making it easier for healthcare providers to manage and track patient interactions. This centralized approach enhances efficiency and reduces the likelihood of errors or miscommunications.
 
 ## How do GB's virtual branches differ from Git branches?
 
