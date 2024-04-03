@@ -2,9 +2,7 @@
   <p align="center">
    <img width="128px" src="/assets/logo.png" />
   </p>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-  <a href="#" class="logo"><i class="fas fa-heartbeat"></i> medcare.</a>
-
+  
 
 	<h1 align="center"><b>Medcare</b></h1>
 	<p align="center">
@@ -24,6 +22,10 @@
 </p>
 
 <br/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <a href="#" class="logo"><i class="fas fa-heartbeat"></i> medcare.</a>
+
 
 ![gitbutler_client](https://github.com/gitbutlerapp/gitbutler/assets/16262535/0d180bfd-7a3c-4a66-a923-30534c5a8197)
 
