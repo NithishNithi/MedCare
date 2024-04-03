@@ -4,7 +4,7 @@ Medcare is a revolutionary solution aimed at modernizing hospital operations and
 
 ## How does it work?
 ### Patient-Doctor Interaction:
-Appointment Scheduling: Patients can log in to the UHMS portal and schedule appointments with their preferred doctors at their convenience. They can view available time slots, select a suitable appointment time, and receive confirmation of their booking.<br><br>
+<h4>Appointment Scheduling:</h4>h4> Patients can log in to the UHMS portal and schedule appointments with their preferred doctors at their convenience. They can view available time slots, select a suitable appointment time, and receive confirmation of their booking.<br><br>
 Remote Consultations: Through the platform, patients can connect with their doctors via online meetings. These remote consultations allow for real-time communication, enabling patients to discuss their health concerns, receive medical advice, and seek prescriptions from the comfort of their homes.<br>
 ### Doctor Verification:
 Authentication Process: UHMS implements a doctor verification mechanism to ensure that only legitimate healthcare professionals join the platform. Doctors are required to undergo a verification process where their credentials and qualifications are authenticated before they are approved to interact with patients.<br><br>
