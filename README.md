@@ -1,14 +1,23 @@
 # Medcare
 
-GitButler is a git client that lets you work on multiple branches at the same time.
-It allows you to quickly organize file changes into separate branches while still having them applied to your working directory.
-You can then push branches individually to your remote, or directly create pull requests.
-
-In a nutshell, it's a more flexible version of `git add -p` and `git rebase -i`, allowing you to efficiently multitask across branches.
+Medcare is a revolutionary solution aimed at modernizing hospital operations and improving patient care delivery, It is an innovative online-based platform designed to streamline healthcare services by connecting patients and doctors seamlessly
 
 ## How does it work?
-
-GitButler keeps track of uncommitted changes in a layer on top of Git. Changes to files or parts of files can be grouped into what we call virtual branches. Whenever you are happy with the contents of a virtual branch, you can push it to a remote. GitButler makes sure that the state of other virtual branches is kept separate.
+### Patient-Doctor Interaction:
+Appointment Scheduling: Patients can log in to the UHMS portal and schedule appointments with their preferred doctors at their convenience. They can view available time slots, select a suitable appointment time, and receive confirmation of their booking.
+Remote Consultations: Through the platform, patients can connect with their doctors via online meetings. These remote consultations allow for real-time communication, enabling patients to discuss their health concerns, receive medical advice, and seek prescriptions from the comfort of their homes.
+Doctor Verification:
+Authentication Process: UHMS implements a doctor verification mechanism to ensure that only legitimate healthcare professionals join the platform. Doctors are required to undergo a verification process where their credentials and qualifications are authenticated before they are approved to interact with patients.
+Access to Medical Records:
+Secure Access: Patients have access to their medical records and reports through the UHMS portal. They can securely view their past medical history, test results, prescriptions, and other relevant information, empowering them to take control of their healthcare journey.
+Prescription Management:
+Digital Prescriptions: Doctors can generate digital prescriptions for their patients directly through the UHMS platform. They can prescribe medications, dosage instructions, and other relevant details, which are then accessible to patients for fulfillment at pharmacies.
+Seamless Communication:
+Efficient Communication Channels: UHMS provides efficient communication channels for patients and doctors to exchange information, ask questions, and address concerns. Whether it's through text-based messaging or video consultations, the platform ensures that communication is smooth and effective.
+Online-Based Platform:
+Accessibility: Being an online-based platform, UHMS offers accessibility to patients and doctors from anywhere with an internet connection. This eliminates geographical barriers, allowing individuals to receive quality healthcare services regardless of their location.
+Centralized Management:
+Centralized Database: UHMS centralizes patient records, appointment schedules, and communication logs, making it easier for healthcare providers to manage and track patient interactions. This centralized approach enhances efficiency and reduces the likelihood of errors or miscommunications.
 
 ## How do GB's virtual branches differ from Git branches?
 
