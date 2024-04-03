@@ -2,6 +2,10 @@
   <p align="center">
    <img width="128px" src="/assets/logo.png" />
   </p>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <a href="#" class="logo"><i class="fas fa-heartbeat"></i> medcare.</a>
+
+
 	<h1 align="center"><b>Medcare</b></h1>
 	<p align="center">
 		Medcare aims to revolutionize hospital management by leveraging advanced technologies to optimize operations and enhance patient care delivery
