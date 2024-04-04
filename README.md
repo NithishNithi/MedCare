@@ -30,13 +30,14 @@ You'll need to add Go's bin directories to your $PATH environment variable. You 
 ```bash
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
+```
 
 ## Run
 
 To run the application, navigate to the project directory and execute the following command:
 ```bash
 ./medcare
-
+```
 
 ## Contributing
 
