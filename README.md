@@ -14,10 +14,29 @@ Medcare is an innovative online-based platform designed to optimize healthcare s
   
 ## Technologies Used
 
-- **Programming Language**: Go (Golang)
-- **Frameworks/Libraries**: (List any frameworks or libraries used)
-- **Database**: (Specify the database technology used)
-- **Hosting**: (Mention where the application is hosted)
+### Backend:
+- **Programming Languages**:
+  - Go (Golang)
+  - Python
+
+- **Frameworks/Libraries**:
+  - Gin (for Go)
+  - (Any specific libraries used in Python?)
+
+- **Database**:
+  - MongoDB
+
+### Frontend:
+- **Languages**:
+  - HTML
+  - CSS
+  - JavaScript
+
+### Other Technologies:
+- **Cloud Services/APIs**:
+  - Google Cloud API
+
+
   
 ## Usage
 
