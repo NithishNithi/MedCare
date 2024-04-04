@@ -56,10 +56,6 @@ To run the application, navigate to the project directory and execute the follow
 ./medcare
 ```
 
-## Contributing
-
-(Provide guidelines for contributing to the project, if applicable)
-
 ## License
 
 (Mention the license under which the project is distributed)
