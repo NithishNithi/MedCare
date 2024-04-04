@@ -21,15 +21,22 @@ Medcare is an innovative online-based platform designed to optimize healthcare s
   
 ## Usage
 
-(Provide instructions on how to install, configure, and use the application)
+### Install Go
 
-## Installation
+The build process requires Go 1.17 or higher. If you don't have it, download Go 1.17+ from [here](https://golang.org/dl/).
 
-(Provide step-by-step installation instructions if applicable)
+You'll need to add Go's bin directories to your $PATH environment variable. You can do this by adding the following lines to your `~/.profile`:
 
-## Getting Started
+```bash
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$GOPATH/bin
 
-(Explain how to get started with using the application)
+## Run
+
+To run the application, navigate to the project directory and execute the following command:
+```bash
+./medcare
+
 
 ## Contributing
 
