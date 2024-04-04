@@ -21,7 +21,6 @@ Medcare is an innovative online-based platform designed to optimize healthcare s
 
 - **Frameworks/Libraries**:
   - Gin (for Go)
-  - (Any specific libraries used in Python?)
 
 - **Database**:
   - MongoDB
@@ -37,7 +36,6 @@ Medcare is an innovative online-based platform designed to optimize healthcare s
   - Google Cloud API
 
 
-  
 ## Usage
 
 ### Install Go
