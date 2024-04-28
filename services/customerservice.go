@@ -153,7 +153,7 @@ func BookAppointment(request *models.BookAppointment) error {
 	}
 	err = database.DoctorAppointmentSchedule_Collection.FindOne(ctx, combinedFilter).Decode(&doctor)
 	if err != nil {
-		log.Println("Not found Doctor with this specilization", err)
+		log.Println("Not found Doctor with this specilization, So General Doctor Assigned")
 		err = database.Doctor_Collection.FindOne(ctx, bson.M{"specialization": "Public Health and General Preventive Medicine"}).Decode(&doctor)
 		if err != nil {
 			log.Println(err)
