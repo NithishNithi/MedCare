@@ -177,8 +177,9 @@ type ConferenceSolutionKey struct {
 // GetMeetLink function definition
 // Update the GetMeetLink function to accept date, fromdatetime, and todatetime as inputs
 func GetMeetLink(request *models.BookAppointment) (string, error, []byte) {
-	url := "http://medcare-meetgenerator-env.eba-iy8bewzy.ap-south-1.elasticbeanstalk.com/create-event"
 
+	url := "http://medcaremeet-env.eba-da73dqy6.ap-south-1.elasticbeanstalk.com/create-event"
+	fmt.Println("url", url)
 	// Event details
 	startDateTime, err := time.Parse("2006-01-02 15:04:05", request.Date+" "+request.FromDateTime)
 	if err != nil {
@@ -213,6 +214,7 @@ func GetMeetLink(request *models.BookAppointment) (string, error, []byte) {
 	// Make POST request to the microservice with event details
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(eventJSON))
 	if err != nil {
+		fmt.Println("eeeeeeeeee", err)
 		return "", fmt.Errorf("error making POST request: %w", err), nil
 	}
 	defer resp.Body.Close()
