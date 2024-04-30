@@ -10,5 +10,5 @@ import (
 func main() {
 	r := gin.Default()
 	routes.SetupRoutes(r)
-	log.Fatal(r.Run(":80"))
+	log.Fatal(r.Run(":5000"))
 }
