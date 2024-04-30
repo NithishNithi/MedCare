@@ -177,7 +177,7 @@ type ConferenceSolutionKey struct {
 // GetMeetLink function definition
 // Update the GetMeetLink function to accept date, fromdatetime, and todatetime as inputs
 func GetMeetLink(request *models.BookAppointment) (string, error, []byte) {
-	url := "http://localhost:5001/create-event"
+	url := "http://http://medcare-meetgenerator-env.eba-iy8bewzy.ap-south-1.elasticbeanstalk.com/create-event"
 
 	// Event details
 	startDateTime, err := time.Parse("2006-01-02 15:04:05", request.Date+" "+request.FromDateTime)
