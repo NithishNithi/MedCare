@@ -22,7 +22,7 @@ func CustomerSignup(c *gin.Context) {
 	err = services.CustomerSignUp(request)
 	if err != nil {
 		log.Println("Error creating customer:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Account Already Exists"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"value": "Account Created"})

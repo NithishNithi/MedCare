@@ -22,7 +22,7 @@ func CustomerSignUp(request *models.CustomerSignUp) error {
 	filter := bson.D{
 		{"$or", []interface{}{
 			bson.D{{"customerid", request.CustomerID}},
-			bson.D{{"email", request.EmailID}},
+			bson.D{{"emailid", request.EmailID}},
 		}},
 	}
 
