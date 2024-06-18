@@ -5,7 +5,6 @@ COPY . .
 RUN apt-get update && apt-get install -y ca-certificates
 
 EXPOSE 5000
-EXPOSE 5005
 
 CMD [ "./medcare" ]
 
