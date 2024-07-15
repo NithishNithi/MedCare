@@ -3,11 +3,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'export PATH=$PATH:/usr/local/go/bin'
-                sh 'env GOOS=linux'
-                sh 'env GOARCH=amd64'
-                sh 'go mod tidy'
-                sh 'go build'
                 sh 'zip -r build.zip *'
                 echo "Building the application..."
             }
