@@ -1,33 +1,16 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
-            steps {
-                sh 'zip -r build.zip *'
-                echo "Building the application..."
-            }
-        }
-        stage('Upload to S3') {
+        stage('Example') {
             steps {
                 script {
-                    def awsCredentials = 'aws-credentials' // Update with your credentials ID
-                    def bucketName = 'jenkinstestbucket3'
-                    def filePath = 'build.zip'
-                    def s3Path = 'builds/'
-
-                    withAWS(region: 'us-west-2', credentials: awsCredentials) {
-                        awsS3Upload(file: filePath, bucket: bucketName, path: s3Path)
+                    withAWS(credentials: 'aws-credentials', region: 'us-west-2') {
+                        // AWS-specific steps here
+                        sh 'aws s3 ls'
                     }
                 }
             }
-        }
-    }
-    post {
-        success {
-            echo 'Build and upload succeeded!'
-        }
-        failure {
-            echo 'Build or upload failed.'
         }
     }
 }
