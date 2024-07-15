@@ -17,7 +17,7 @@ pipeline {
             stage('Upload to S3') {
                 steps {
                     withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-                        s3Upload(bucket: 'test-myawsjenkins', file: './build.zip', path: 's3/destination/path')
+                        s3Upload(bucket: 'test-myawsjenkins', file: './build.zip', path: 'builds/')
                     }
                 }
             }
