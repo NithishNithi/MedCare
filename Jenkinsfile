@@ -2,21 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage("File Creation") {
+        stage("Aws test credentials") {
             steps {
-                // Create a file in Jenkins workspace
-                sh 'echo "Hello DevOps" > hello.txt'
-            }
-        }
-        
-        stage("Upload to S3") {
-            steps {
-                // Upload file to S3 bucket using AWS CLI
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
-                    script {
-                        echo "hhhhhhhhhhhhh"
-                        def awsCliOutput = sh(script: 'aws s3 cp hello.txt s3://test-myawsjenkins/', returnStdout: true).trim()
-                        echo "AWS CLI Output: ${awsCliOutput}"
+                script {
+                    // Define AWS credentials and region
+                    withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+                        // Run commands within AWS context
+                        sh 'echo "Hello DevOps" > hello.txt'
+                        // Upload file to S3 bucket
+                        s3Upload(file: 'hello.txt', bucket: 'test-myawsjenkins')
+                        // Example of downloading a file (if needed)
+                        sh "aws s3 cp s3://test-myawsjenkins/hello.txt downloaded.txt"
                     }
                 }
             }
