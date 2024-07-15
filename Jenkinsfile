@@ -9,7 +9,8 @@ pipeline {
         stage("Aws test credentials") {
             steps {
                 script {
-                    withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
+                    // Use AWS credentials configured in Jenkins
+                    withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
                         // Run commands within AWS context
                         sh 'echo "Hello DevOps" > hello.txt'
                         // Upload file to S3 bucket
